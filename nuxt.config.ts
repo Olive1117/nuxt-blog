@@ -5,12 +5,14 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   css: ["@/assets/app.css"],
-  modules: ["@vueuse/nuxt", "@nuxt/icon"],
-  vite: {
-    plugins: [tailwindcss()],
+  modules: ["@vueuse/nuxt", "@nuxt/icon", "@nuxt/image", '@nuxtjs/color-mode'],
+  colorMode: {
+    preference: 'light',
+    fallback: 'light',
+    dataValue: 'theme',
   },
   routeRules: {
-    '/': { prerender: true },
+    "/": { prerender: true },
     "/blog/post/**": {
       cache: {
         swr: true,
@@ -25,6 +27,12 @@ export default defineNuxtConfig({
 
     public: {
       apiClientBase: "/api/v1",
+    },
+  },
+  vite: {
+    plugins: [tailwindcss()],
+    optimizeDeps: {
+      include: ["reka-ui", "reka-ui/namespaced"],
     },
   },
   nitro: {

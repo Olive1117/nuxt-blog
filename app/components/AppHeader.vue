@@ -1,7 +1,7 @@
 <template>
   <div class="AppHeader flex items-center justify-between p-4 ">
     <div class="flex items-center">
-      <img src="/小小波奇_透明.png" alt="头像" class="h-10 w-10 object-cover rounded-full scale-150" />
+      <NuxtImg src="/小小波奇_透明.png" alt="头像" class="h-10 w-10 object-cover rounded-full scale-150" />
       <span class="ml-2 text-xl font-bold">olive的博客</span>
     </div>
     <NavigationMenu.Root class="relative text-nowrap" disableHoverTrigger disablePointerLeaveClose
@@ -17,8 +17,8 @@
             <NavigationMenu.Sub v-if="nav.children">
               <NavigationMenu.List class="flex flex-col justify-center">
                 <NavigationMenu.Item v-for="chiNav in nav.children">
-                  <NavigationMenu.Trigger class="p-4 flex items-center gap-2" :as="nav.isFolder ? 'button' : NuxtLink"
-                    :to="nav.isUrl ? nav.url : nav.path" @click="handleNavClick(chiNav)">
+                  <NavigationMenu.Trigger class="p-4 flex items-center gap-2" :as="chiNav.isFolder ? 'button' : NuxtLink"
+                    :to="chiNav.isUrl ? chiNav.url : chiNav.path" @click="handleNavClick(chiNav)">
                     <Icon :name="chiNav.icon" />
                     {{ chiNav.name }}
                   </NavigationMenu.Trigger>

@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 @theme {
   --animate-scaleIn: scaleIn 200ms ease-out;
   --animate-scaleOut: scaleOut 150ms ease-in;
