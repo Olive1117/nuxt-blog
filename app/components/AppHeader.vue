@@ -1,51 +1,116 @@
 <template>
-  <div class="AppHeader flex items-center justify-between p-4 ">
-    <div class="flex items-center">
-      <NuxtImg src="/小小波奇_透明.png" alt="头像" class="h-10 w-10 object-cover rounded-full scale-150" />
-      <span class="ml-2 text-xl font-bold">olive的博客</span>
-    </div>
-    <NavigationMenu.Root class="relative text-nowrap" disableHoverTrigger disablePointerLeaveClose
-      v-model="currentNavValue">
-      <NavigationMenu.List class="flex justify-between items-center">
-        <NavigationMenu.Item class="flex items-center" v-for="nav in NavLinks" :key="nav.name" :value="nav.name">
-          <NavigationMenu.Trigger class="p-4 flex items-center gap-2" :as="nav.isFolder ? 'button' : NuxtLink"
-            :to="nav.isUrl ? nav.url : nav.path" @click="handleNavClick(nav)">
-            <Icon :name="nav.icon" />
-            {{ nav.name }}
-          </NavigationMenu.Trigger>
-          <NavigationMenu.Content class="absolute top-0 left-0 w-full sm:w-auto">
-            <NavigationMenu.Sub v-if="nav.children">
-              <NavigationMenu.List class="flex flex-col justify-center">
-                <NavigationMenu.Item v-for="chiNav in nav.children">
-                  <NavigationMenu.Trigger class="p-4 flex items-center gap-2" :as="chiNav.isFolder ? 'button' : NuxtLink"
-                    :to="chiNav.isUrl ? chiNav.url : chiNav.path" @click="handleNavClick(chiNav)">
-                    <Icon :name="chiNav.icon" />
-                    {{ chiNav.name }}
-                  </NavigationMenu.Trigger>
-                </NavigationMenu.Item>
-              </NavigationMenu.List>
-            </NavigationMenu.Sub>
-          </NavigationMenu.Content>
-        </NavigationMenu.Item>
-        <NavigationMenu.Indicator
-          class="absolute top-0 h-full border rounded-xl w-(--reka-navigation-menu-indicator-size) left-(--reka-navigation-menu-indicator-position) transition-[width,left]">
-        </NavigationMenu.Indicator>
-      </NavigationMenu.List>
-      <div class="perspective-[2000px] absolute top-full left-0 flex w-full">
-        <NavigationMenu.Viewport
-          class="data-[state=open]:animate-scaleIn data-[state=closed]:animate-scaleOut relative left-(--reka-navigation-menu-viewport-left) mt-2.5 h-(--reka-navigation-menu-viewport-height) w-full origin-[top_center] overflow-hidden rounded-xl bg-white transition-[width,height,left] duration-300 sm:w-(--reka-navigation-menu-viewport-width) shadow-sm" />
+  <div class="AppHeader">
+    <!-- 电脑导航 -->
+    <div class="flex justify-center">
+      <div class="hidden md:flex items-center justify-between transition-[flex-grow] duration-500 py-4 px-10"
+        :class="isShorten ? ' grow-0' : ' grow'">
+        <NuxtLink class="flex items-center text-nowrap relative" to="/" @click="scrollToTop">
+          <NuxtImg src="/小小波奇_透明.png" alt="头像" class="h-10 w-10 object-cover rounded-full scale-150" />
+          <span
+            class="absolute left-full text-xl font-bold transition-[opacity,scale] duration-600 origin-[left_center]"
+            :class="isShorten ? 'opacity-0 scale-0' : 'opacity-100 scale-100'">olive的博客</span>
+        </NuxtLink>
+        <NavigationMenu.Root class="relative text-nowrap" disableHoverTrigger disablePointerLeaveClose
+          v-model="currentNavValue">
+          <NavigationMenu.List class="flex justify-between items-center">
+            <NavigationMenu.Item class="flex items-center" v-for="nav in NavLinks" :key="nav.name" :value="nav.name">
+              <NavigationMenu.Trigger class="p-4 flex items-center gap-2" :as="nav.isFolder ? 'button' : NuxtLink"
+                :to="nav.isUrl ? nav.url : nav.path" @click="handleNavClick(nav)">
+                <Icon :name="nav.icon" />
+                {{ nav.name }}
+              </NavigationMenu.Trigger>
+              <NavigationMenu.Content class="absolute top-0 left-0 w-full sm:w-auto">
+                <NavigationMenu.Sub v-if="nav.children">
+                  <NavigationMenu.List class="flex flex-col justify-center">
+                    <NavigationMenu.Item v-for="chiNav in nav.children">
+                      <NavigationMenu.Trigger class="p-4 flex items-center gap-2"
+                        :as="chiNav.isFolder ? 'button' : NuxtLink" :to="chiNav.isUrl ? chiNav.url : chiNav.path"
+                        @click="handleNavClick(chiNav)">
+                        <Icon :name="chiNav.icon" />
+                        {{ chiNav.name }}
+                      </NavigationMenu.Trigger>
+                    </NavigationMenu.Item>
+                  </NavigationMenu.List>
+                </NavigationMenu.Sub>
+              </NavigationMenu.Content>
+            </NavigationMenu.Item>
+            <NavigationMenu.Indicator
+              class="absolute top-0 h-full border rounded-xl w-(--reka-navigation-menu-indicator-size) left-(--reka-navigation-menu-indicator-position) transition-[width,left]">
+            </NavigationMenu.Indicator>
+          </NavigationMenu.List>
+          <div class="perspective-[2000px] absolute top-full left-0 flex w-full">
+            <NavigationMenu.Viewport
+              class="data-[state=open]:animate-scaleIn data-[state=closed]:animate-scaleOut relative left-(--reka-navigation-menu-viewport-left) mt-2.5 h-(--reka-navigation-menu-viewport-height) w-full origin-[top_center] overflow-hidden rounded-xl bg-white transition-[width,height,left] duration-300 sm:w-(--reka-navigation-menu-viewport-width) shadow-sm" />
+          </div>
+        </NavigationMenu.Root>
+        <div class="flex items-center gap-4 relative">
+          <button class="h-8 w-8 flex items-center justify-center" @click="openLogin">
+            <Icon size="24" name="tabler:edit-circle" />
+          </button>
+        </div>
       </div>
-    </NavigationMenu.Root>
-    <div class="flex items-center gap-4 relative">
-      <button class="h-8 w-8 flex items-center justify-center" @click="openLogin">
-        <Icon name="tabler:edit-circle" />
-      </button>
+    </div>
+
+    <!-- 手机导航 -->
+    <div class="md:hidden flex justify-between py-4 px-4">
+      <Drawer.Root swipeDirection="up">
+        <Drawer.Trigger>
+          <Icon name="tabler:align-justified" size="32" />
+        </Drawer.Trigger>
+        <Drawer.Portal>
+          <Drawer.Overlay class="DrawerOverlay fixed inset-0 z-30 bg-black/40" />
+          <Drawer.Content
+            class="DrawerContent fixed inset-x-0 top-0 z-100 mx-auto flex max-w-125 flex-col rounded-b-2xl bg-white outline-none p-6">
+            <VisuallyHidden>
+              <Drawer.Title>导航栏</Drawer.Title>
+            </VisuallyHidden>
+            <Accordion.Root as="ul">
+              <template v-for="nav in NavLinks" :key="nav.name">
+                <Accordion.Item :value="nav.name" as="li">
+                  <component :is="nav.isFolder ? Accordion.Trigger : Drawer.Close"
+                    class="p-4 w-full flex items-center justify-between gap-2" :as="nav.isFolder ? 'button' : NuxtLink"
+                    :to="nav.isUrl ? nav.url : nav.path" @click="handleNavClick(nav)">
+                    {{ nav.name }}
+                    <Icon :name="nav.icon" />
+                  </component>
+                  <Accordion.Content>
+                    <Accordion.Root as="ul">
+                      <template v-for="chiNav in nav.children" :key="chiNav.name">
+                        <Accordion.Item :value="chiNav.name" as="li">
+                          <component :is="chiNav.isFolder ? Accordion.Trigger : Drawer.Close"
+                            class="p-2 px-8 w-full flex items-center justify-between gap-2"
+                            :as="chiNav.isFolder ? 'button' : NuxtLink" :to="chiNav.isUrl ? chiNav.url : chiNav.path"
+                            @click="handleNavClick(chiNav)">
+                            {{ chiNav.name }}
+                            <Icon :name="chiNav.icon" />
+                          </component>
+                        </Accordion.Item>
+                      </template>
+                    </Accordion.Root>
+                  </Accordion.Content>
+                </Accordion.Item>
+              </template>
+            </Accordion.Root>
+            <Drawer.Handle class="mx-auto mt-3 h-1.5 w-12 shrink-0 rounded-full bg-zinc-700" />
+          </Drawer.Content>
+        </Drawer.Portal>
+      </Drawer.Root>
+      <NuxtLink class="flex items-center text-nowrap relative" to="/" @click="scrollToTop">
+        <NuxtImg src="/小小波奇_透明.png" alt="头像" class="h-10 w-10 object-cover rounded-full scale-150" />
+        <span class="text-xl font-bold">olive的博客</span>
+      </NuxtLink>
+      <div class="flex items-center gap-4 relative">
+        <button class="h-8 w-8 flex items-center justify-center" @click="openLogin">
+          <Icon size="24" name="tabler:edit-circle" />
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { NavigationMenu } from 'reka-ui/namespaced';
+import { VisuallyHidden } from 'reka-ui'
+import { Accordion, Drawer, NavigationMenu } from 'reka-ui/namespaced';
 import { NuxtLink } from '#components'
 
 interface NavLink {
@@ -93,4 +158,68 @@ const handleNavClick = (nav: NavLink) => {
   }
 };
 const { openLogin } = useAuth()
+
+const { y } = useWindowScroll()
+const isShorten = computed(() => y.value > 100)
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
 </script>
+
+<style scoped>
+.DrawerOverlay[data-state="open"] {
+  animation: drawer-overlay-in 450ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.DrawerOverlay[data-state="closed"] {
+  animation: drawer-overlay-out 450ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.DrawerContent {
+  /* `--drawer-swipe-movement-y` is written by DrawerContent while dragging. */
+  transform: translateY(var(--drawer-swipe-movement-y, 0px));
+  transition: transform 450ms cubic-bezier(0.32, 0.72, 0, 1);
+  will-change: transform;
+}
+
+/* Enter/exit keyframes animate the independent `translate` property so they
+   compose with the inline `transform` carrying the live drag offset. */
+.DrawerContent[data-state="open"] {
+  animation: drawer-slide-bottom-in 450ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.DrawerContent[data-state="closed"] {
+  animation: drawer-slide-bottom-out 450ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Silence the transform transition during an active drag so it tracks the
+   pointer in real time. */
+.DrawerContent[data-swiping] {
+  transition-duration: 0ms;
+  user-select: none;
+}
+
+@keyframes drawer-overlay-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes drawer-overlay-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes drawer-slide-bottom-in {
+  from {
+    translate: 0 -100%;
+  }
+}
+
+@keyframes drawer-slide-bottom-out {
+  to {
+    translate: 0 -100%;
+  }
+}
+</style>
