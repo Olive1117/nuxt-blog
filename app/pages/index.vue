@@ -1,5 +1,5 @@
 <template>
-  <div class="index relative">
+  <div class="relative">
     <!-- 开屏背景图 -->
     <img class="sticky h-dvh w-full top-0 -z-10 object-cover select-none" src="/IMG_2550.PNG" alt="博客背景图 - 蓝发动漫风格插画" />
     <!-- 开屏文字 -->
