@@ -3,4 +3,7 @@ import eslintConfigPrettier from 'eslint-config-prettier'
 
 export default withNuxt({
   // options here
+  rules: {
+    'vue/attributes-order': ['warn', { alphabetical: true }],
+  },
 }).append(eslintConfigPrettier)

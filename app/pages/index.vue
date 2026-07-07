@@ -2,8 +2,8 @@
   <div class="relative">
     <!-- 开屏背景图 -->
     <NuxtPicture
-class="sticky block h-dvh w-full top-0 -z-10 select-none"
-      :img-attrs="{ class: 'w-full h-full object-cover' }" src="/IMG_2550.PNG" alt="博客背景图 - 蓝发动漫风格插画" />
+alt="博客背景图 - 蓝发动漫风格插画"
+      class="sticky block h-dvh w-full top-0 -z-10 select-none" :img-attrs="{ class: 'w-full h-full object-cover' }" src="/IMG_2550.PNG" />
     <!-- 开屏文字 -->
     <div class="absolute h-dvh w-full top-0 whitespace-nowrap bg-linear-to-b from-white to-transparent to-20%">
       <!-- 装饰条 -->
@@ -33,7 +33,7 @@ v-for="(skill, index) in skill_languages" :key="index"
         <span class="text-4xl">博客</span>
         <div class="h-px w-16 bg-linear-to-r from-zinc-900/0 via-zinc-900 to-zinc-900/0"></div>
         <span class="uppercase text-sm tracking-[0.25rem]">olive</span>
-        <Icon name="tabler:heart" class="text-red-500" />
+        <Icon class="text-red-500" name="tabler:heart" />
         <span class="uppercase text-sm tracking-[0.25rem]">Come on and work hard</span>
       </div>
     </div>

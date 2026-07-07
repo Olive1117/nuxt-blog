@@ -1,8 +1,8 @@
 <template>
   <div class="flex items-center justify-center">
     <Popover.Root>
-      <Popover.Trigger class="flex items-center justify-center" aria-label="Toggle color theme">
-        <Icon size="24" name="tabler:settings" />
+      <Popover.Trigger aria-label="Toggle color theme" class="flex items-center justify-center">
+        <Icon name="tabler:settings" size="24" />
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Content class="data-[state=open]:animate-fade-in" side="bottom" :side-offset="5">

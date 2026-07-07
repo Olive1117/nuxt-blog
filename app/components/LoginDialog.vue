@@ -14,7 +14,7 @@
           <Dialog.Description>用于启用编辑状态</Dialog.Description>
         </VisuallyHidden>
         <Tabs.Root class="flex flex-col" default-value="pwd">
-          <Tabs.List class="relative border-b flex" aria-label="Manage your account">
+          <Tabs.List aria-label="Manage your account" class="relative border-b flex">
             <Tabs.Indicator
               class="absolute px-8 left-0 h-0.5 bottom-0 w-(--reka-tabs-indicator-size) translate-x-(--reka-tabs-indicator-position) translate-y-px rounded-full transition-[width,transform] duration-300"
             >
@@ -49,13 +49,13 @@
           </Tabs.Content>
           <Tabs.Content class="p-4" value="otp">
             <div class="flex flex-col item-start gap-2">
-              <Label for="otpInp" class="text-stone-700"> 一次性验证码 </Label>
+              <Label class="text-stone-700" for="otpInp"> 一次性验证码 </Label>
               <PinInput.Root id="otpInp" class="flex gap-2 items-center" placeholder="○">
                 <PinInput.Input
                   v-for="(id, index) in 5"
                   :key="id"
-                  :index="index"
                   class="w-10 h-10 bg-white rounded-xl text-center shadow-sm border placeholder:text-xl focus:shadow-[0_0_0_2px] focus:shadow-stone-400 outline-none"
+                  :index="index"
                 />
               </PinInput.Root>
             </div>

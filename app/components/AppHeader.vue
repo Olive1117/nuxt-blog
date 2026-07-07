@@ -12,9 +12,9 @@
           @click="scrollToTop"
         >
           <NuxtImg
-            src="/小小波奇_透明.png"
             alt="头像"
             class="h-10 w-10 object-cover rounded-full scale-150"
+            src="/小小波奇_透明.png"
           />
           <span
             class="absolute left-full text-xl font-bold transition-[opacity,scale] duration-600 origin-[left_center]"
@@ -36,8 +36,8 @@
               :value="nav.name"
             >
               <NavigationMenu.Trigger
-                class="p-4 flex items-center gap-2"
                 :as="nav.isFolder ? 'button' : NuxtLink"
+                class="p-4 flex items-center gap-2"
                 :to="nav.isUrl ? nav.url : nav.path"
                 @click="handleNavClick(nav)"
               >
@@ -52,8 +52,8 @@
                       :key="chiNav.name"
                     >
                       <NavigationMenu.Trigger
-                        class="p-4 flex items-center gap-2"
                         :as="chiNav.isFolder ? 'button' : NuxtLink"
+                        class="p-4 flex items-center gap-2"
                         :to="chiNav.isUrl ? chiNav.url : chiNav.path"
                         @click="handleNavClick(chiNav)"
                       >
@@ -79,13 +79,13 @@
         <div class="flex items-center gap-4 relative">
           <ThemeToggle class="h-8 w-8" />
           <button
-            class="h-8 w-8 flex items-center justify-center"
             aria-label="Sign in"
+            class="h-8 w-8 flex items-center justify-center"
             @click="openLogin"
           >
             <Icon
-              size="24"
               name="tabler:login"
+              size="24"
             />
           </button>
         </div>
@@ -115,13 +115,13 @@
                 :key="nav.name"
               >
                 <Accordion.Item
-                  :value="nav.name"
                   as="li"
+                  :value="nav.name"
                 >
                   <component
                     :is="nav.isFolder ? Accordion.Trigger : Drawer.Close"
-                    class="p-4 w-full flex items-center justify-between gap-2"
                     :as="nav.isFolder ? 'button' : NuxtLink"
+                    class="p-4 w-full flex items-center justify-between gap-2"
                     :to="nav.isUrl ? nav.url : nav.path"
                     @click="handleNavClick(nav)"
                   >
@@ -135,13 +135,13 @@
                         :key="chiNav.name"
                       >
                         <Accordion.Item
-                          :value="chiNav.name"
                           as="li"
+                          :value="chiNav.name"
                         >
                           <component
                             :is="chiNav.isFolder ? Accordion.Trigger : Drawer.Close"
-                            class="p-2 px-8 w-full flex items-center justify-between gap-2"
                             :as="chiNav.isFolder ? 'button' : NuxtLink"
+                            class="p-2 px-8 w-full flex items-center justify-between gap-2"
                             :to="chiNav.isUrl ? chiNav.url : chiNav.path"
                             @click="handleNavClick(chiNav)"
                           >
@@ -165,9 +165,9 @@
         @click="scrollToTop"
       >
         <NuxtImg
-          src="/小小波奇_透明.png"
           alt="头像"
           class="h-10 w-10 object-cover rounded-full scale-150"
+          src="/小小波奇_透明.png"
         />
         <span class="text-xl font-bold">olive的博客</span>
       </NuxtLink>
@@ -178,8 +178,8 @@
           @click="openLogin"
         >
           <Icon
-            size="24"
             name="tabler:login"
+            size="24"
           />
         </button>
       </div>

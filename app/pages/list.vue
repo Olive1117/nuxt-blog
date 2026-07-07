@@ -1,6 +1,6 @@
 <template>
   <div class="py-16 flex flex-col gap-4">
-    <PageHeader :stats="{ 文章总数: 6, 文章类: 7 }" class="px-[10vw]" />
+    <PageHeader class="px-[10vw]" :stats="{ 文章总数: 6, 文章类: 7 }" />
     <Icon name="tabler:mist" />
   </div>
 </template>
