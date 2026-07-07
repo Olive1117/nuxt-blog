@@ -1,100 +1,100 @@
 export interface AuthRequest {
-  username: string;
-  password: string;
-  captcha_id?: string;
-  captcha_code: string;
+  username: string
+  password: string
+  captcha_id?: string
+  captcha_code: string
 }
 
 export interface AuthResponse {
-  access_token: string;
-  expires_at: string;
-  token_type: string;
+  access_token: string
+  expires_at: string
+  token_type: string
 }
 
 export interface ApiArticle {
-  title: string;
-  desc: string;
-  content: string;
-  status: number;
-  created_at: string;
-  updated_at: string;
-  short_id: string;
-  word_count: number;
-  image_count: number;
-  slug: string;
+  title: string
+  desc: string
+  content: string
+  status: number
+  created_at: string
+  updated_at: string
+  short_id: string
+  word_count: number
+  image_count: number
+  slug: string
 
-  category: string;
+  category: string
 
-  tags: string[];
+  tags: string[]
 }
 
 export interface ArticleQuery {
-  title?: string;
-  category?: string;
-  tags?: string[];
-  status?: number;
+  title?: string
+  category?: string
+  tags?: string[]
+  status?: number
 }
 
 export interface ApiCategory {
-  id: string;
-  name: string;
-  status: number;
+  id: string
+  name: string
+  status: number
 }
 export interface ApiTag {
-  id: string;
-  name: string;
-  status: number;
+  id: string
+  name: string
+  status: number
 }
 export interface ApiUser {
   // 账号核心
-  id: string;
-  username: string;
-  email: string;
+  id: string
+  username: string
+  email: string
 
   //: 基本资料
-  nickname: string;
-  avatar: string;
-  banner: string;
-  bio: string;
-  location: string;
-  website: string;
-  birthdate: string;
+  nickname: string
+  avatar: string
+  banner: string
+  bio: string
+  location: string
+  website: string
+  birthdate: string
 
   //: 统计数据 (如果你想学推特做缓存计数)
-  post_count: number;
-  friend_count: number;
+  post_count: number
+  friend_count: number
   //: 权限控制
-  role: string;
-  status: number;
+  role: string
+  status: number
 
-  created_at: string;
-  updated_at: string;
+  created_at: string
+  updated_at: string
 }
 export interface RegisterRequest {
   // 账号核心
-  username: string;
-  email: string;
-  password: string;
+  username: string
+  email: string
+  password: string
   // 基本资料
-  nickname: string;
-  avatar: string;
-  banner: string;
-  bio: string;
-  location: string;
-  website: string;
-  birthdate: string;
+  nickname: string
+  avatar: string
+  banner: string
+  bio: string
+  location: string
+  website: string
+  birthdate: string
 }
 
 export interface ApiArticleStats {
-  total: number;
-  total_by_category: { string: number };
-  total_by_tag: { string: number };
+  total: number
+  total_by_category: { string: number }
+  total_by_tag: { string: number }
 }
 
 export interface FriendLink {
-  id: string;
-  name: string;
-  url: string;
-  logo: string;
-  description: string;
+  id: string
+  name: string
+  url: string
+  logo: string
+  description: string
 }

@@ -1,14 +1,12 @@
 <template>
-  <div class="default relative">
-    <AppHeader class="fixed top-0 w-full z-10"/>
+  <div class="default relative z-0">
+    <AppHeader class="fixed top-0 w-full z-10" />
     <div class="relative z-5">
-      <slot  />
+      <slot />
     </div>
-    <AppFooter/>
+    <AppFooter />
     <LoginDialog />
   </div>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
