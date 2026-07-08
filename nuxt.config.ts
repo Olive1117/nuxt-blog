@@ -5,7 +5,22 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   css: ['@/assets/app.css'],
-  modules: ['@vueuse/nuxt', '@nuxt/icon', '@nuxt/image', '@nuxtjs/color-mode', '@nuxt/eslint'],
+  modules: [
+    '@vueuse/nuxt',
+    '@nuxt/icon',
+    '@nuxt/image',
+    '@nuxtjs/color-mode',
+    '@nuxt/eslint',
+    '@pinia/nuxt',
+  ],
+  devServer: { port: 3000 },
+  runtimeConfig: {
+    apiServerBase: 'http://localhost:8080/api/v1',
+
+    public: {
+      apiClientBase: '/api/v1',
+    },
+  },
   colorMode: {
     preference: 'light',
     fallback: 'light',
@@ -21,14 +36,6 @@ export default defineNuxtConfig({
       },
     },
   },
-  devServer: { port: 3000 },
-  runtimeConfig: {
-    apiServerBase: 'http://localhost:8080',
-
-    public: {
-      apiClientBase: '/api/v1',
-    },
-  },
   vite: {
     plugins: [tailwindcss()],
     optimizeDeps: {
@@ -40,6 +47,7 @@ export default defineNuxtConfig({
       '/api/v1': {
         target: 'http://localhost:8080/api/v1',
         changeOrigin: true,
+        cookieDomainRewrite: { '*': 'localhost' },
       },
     },
   },

@@ -1,18 +1,17 @@
 export default defineNuxtPlugin(() => {
-  const { token } = useAuth()
+  const auth_store = useAuthStore()
   const api = $fetch.create({
     onRequest({ request, options }) {
-      if (token.value) {
+      if (auth_store.token) {
         options.headers = options.headers || {}
-        options.headers.append('Authorization', `Bearer ${token.value}`)
+        options.headers.append('Authorization', `Bearer ${auth_store.token}`)
       }
       console.log('请求:', request, 'opt', options)
     },
     onResponse({ response, options }) {
       if (response.status === 401) {
-        const { logout, openLogin } = useAuth()
-        logout()
-        openLogin()
+        auth_store.logout()
+        auth_store.openLogin()
       }
       console.log('响应:', response._data, 'opt', options.query)
     },

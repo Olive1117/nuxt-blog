@@ -13,12 +13,13 @@ export async function fetchAllSequential<T = unknown>(
   url: string,
   opt?: FetchOptions
 ): Promise<T[]> {
+  const { $api } = useNuxtApp()
   const pageSize = opt?.pageSize ?? 50
   const delay = opt?.delay ?? 0
 
   let firstPage: ApiResponse<PageResponse<T>>
   try {
-    firstPage = await $fetch<ApiResponse<PageResponse<T>>>(url, {
+    firstPage = await $api<ApiResponse<PageResponse<T>>>(url, {
       query: { page: 1, page_size: pageSize },
     })
   } catch (err) {
@@ -36,7 +37,7 @@ export async function fetchAllSequential<T = unknown>(
 
   for (let page = 2; page <= totalPage; page++) {
     try {
-      const res = await $fetch<ApiResponse<PageResponse<T>>>(url, {
+      const res = await $api<ApiResponse<PageResponse<T>>>(url, {
         query: { page, page_size: pageSize },
       })
       allData.push(...res.data.list)
@@ -51,12 +52,13 @@ export async function fetchAllSequential<T = unknown>(
 }
 
 export async function fetchAllParallel<T = unknown>(url: string, opt?: FetchOptions): Promise<T[]> {
+  const { $api } = useNuxtApp()
   const pageSize = opt?.pageSize ?? 50
   const concurrency = opt?.concurrency ?? 3
 
   let firstPage: ApiResponse<PageResponse<T>>
   try {
-    firstPage = await $fetch<ApiResponse<PageResponse<T>>>(url, {
+    firstPage = await $api<ApiResponse<PageResponse<T>>>(url, {
       query: { page: 1, page_size: pageSize },
     })
   } catch (err) {
@@ -80,7 +82,7 @@ export async function fetchAllParallel<T = unknown>(url: string, opt?: FetchOpti
       const page = pageQueue.shift()
       if (!page) break
       try {
-        const res = await $fetch<ApiResponse<PageResponse<T>>>(url, {
+        const res = await $api<ApiResponse<PageResponse<T>>>(url, {
           query: { page, page_size: pageSize },
         })
         results[page] = res
@@ -93,12 +95,12 @@ export async function fetchAllParallel<T = unknown>(url: string, opt?: FetchOpti
     }
   }
 
-  const worke: Promise<void>[] = []
+  const work: Promise<void>[] = []
   const activeCount = Math.min(concurrency, pageQueue.length)
   for (let i = 0; i < activeCount; i++) {
-    worke.push(worker())
+    work.push(worker())
   }
-  await Promise.all(worke)
+  await Promise.all(work)
 
   const allData: T[] = []
   for (let page = 1; page <= totalPage; page++) {
