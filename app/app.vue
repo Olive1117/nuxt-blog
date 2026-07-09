@@ -1,7 +1,13 @@
 <template>
   <div class="main">
     <NuxtLayout>
-      <NuxtPage />
+      <NuxtPage :keepalive />
     </NuxtLayout>
   </div>
 </template>
+
+<script setup lang="ts">
+  const keepalive = {
+    include: ['archive'],
+  }
+</script>
