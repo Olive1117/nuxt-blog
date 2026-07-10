@@ -21,7 +21,7 @@ export default defineNuxtPlugin({
             headers: { cookie: refreshCookie },
           })
           auth_store.token = res.data.access_token
-          console.log('服务端加载token成功', auth_store.token)
+          console.log('服务端加载token成功')
         } catch {
           /* empty */
         }

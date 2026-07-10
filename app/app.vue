@@ -8,6 +8,6 @@
 
 <script setup lang="ts">
   const keepalive = {
-    include: ['archive'],
+    include: ['archive', 'home'],
   }
 </script>

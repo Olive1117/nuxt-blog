@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@nuxt/eslint',
     '@pinia/nuxt',
+    '@comark/nuxt',
   ],
   devServer: { port: 3000 },
   runtimeConfig: {

@@ -12,9 +12,12 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "@comark/nuxt": "0.5.0",
     "@nuxt/image": "^2.0.0",
     "@nuxtjs/color-mode": "^4.0.1",
     "@pinia/nuxt": "^0.11.3",
+    "@shikijs/langs": "^4.3.1",
+    "@shikijs/themes": "^4.3.1",
     "@vueuse/core": "^14.3.0",
     "@vueuse/nuxt": "^14.3.0",
     "@vueuse/router": "^14.3.0",
@@ -28,6 +31,7 @@
     "@iconify-json/tabler": "^1.2.35",
     "@nuxt/eslint": "^1.16.0",
     "@nuxt/icon": "^2.3.1",
+    "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.2",
     "eslint": "^10.6.0",
     "eslint-config-prettier": "^10.1.8",

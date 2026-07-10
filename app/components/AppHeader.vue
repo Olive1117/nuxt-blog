@@ -1,5 +1,5 @@
 <template>
-  <div class="AppHeader">
+  <div class="AppHeader dark:text-zinc-100">
     <!-- 电脑导航 -->
     <div class="flex justify-center">
       <div
@@ -13,7 +13,7 @@
         >
           <NuxtImg
             alt="头像"
-            class="h-10 w-10 object-cover rounded-full scale-150"
+            class="h-10 w-10 object-cover rounded-full zoom-150"
             src="/小小波奇_透明.png"
           />
           <span
@@ -43,6 +43,10 @@
               >
                 <Icon :name="nav.icon" />
                 {{ nav.name }}
+                <Icon
+                  v-if="nav.children || nav.isUrl"
+                  :name="nav.isUrl ? 'tabler:external-link' : 'tabler:chevron-down'"
+                />
               </NavigationMenu.Trigger>
               <NavigationMenu.Content class="absolute top-0 left-0 w-full sm:w-auto">
                 <NavigationMenu.Sub v-if="nav.children">
@@ -59,6 +63,10 @@
                       >
                         <Icon :name="chiNav.icon" />
                         {{ chiNav.name }}
+                        <Icon
+                          v-if="chiNav.children || chiNav.isUrl"
+                          :name="chiNav.isUrl ? 'tabler:external-link' : 'tabler:chevron-down'"
+                        />
                       </NavigationMenu.Trigger>
                     </NavigationMenu.Item>
                   </NavigationMenu.List>
@@ -72,7 +80,7 @@
           </NavigationMenu.List>
           <div class="perspective-[2000px] absolute top-full left-0 flex w-full">
             <NavigationMenu.Viewport
-              class="data-[state=open]:animate-scale-in data-[state=closed]:animate-scale-out relative left-(--reka-navigation-menu-viewport-left) mt-2.5 h-(--reka-navigation-menu-viewport-height) w-full origin-[top_center] overflow-hidden rounded-xl bg-white transition-[width,height,left] duration-300 sm:w-(--reka-navigation-menu-viewport-width) shadow-sm"
+              class="data-[state=open]:animate-scale-in data-[state=closed]:animate-scale-out relative left-(--reka-navigation-menu-viewport-left) mt-2.5 h-(--reka-navigation-menu-viewport-height) w-full origin-[top_center] overflow-hidden rounded-xl bg-zinc-50 dark:bg-zinc-900 transition-[width,height,left] duration-300 sm:w-(--reka-navigation-menu-viewport-width) shadow-sm"
             />
           </div>
         </NavigationMenu.Root>

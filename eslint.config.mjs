@@ -6,5 +6,6 @@ export default withNuxt({
   // options here
   rules: {
     'vue/attributes-order': ['warn', { alphabetical: true }],
+    'vue/multi-word-component-names': 'off',
   },
 }).append(eslintConfigPrettier)

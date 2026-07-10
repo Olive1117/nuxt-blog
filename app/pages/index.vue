@@ -1,46 +1,70 @@
 <template>
-  <div class="relative">
+  <div class="relative z-0 dark:text-zinc-100">
     <!-- 开屏背景图 -->
     <NuxtPicture
-alt="博客背景图 - 蓝发动漫风格插画"
-      class="sticky block h-dvh w-full top-0 -z-10 select-none" :img-attrs="{ class: 'w-full h-full object-cover' }" src="/IMG_2550.PNG" />
+      alt="博客背景图 - 蓝发动漫风格插画"
+      class="sticky block h-dvh w-full top-0 -z-10 select-none"
+      :img-attrs="{ class: 'w-full h-full object-cover' }"
+      src="/IMG_2550.PNG"
+    />
     <!-- 开屏文字 -->
-    <div class="absolute h-dvh w-full top-0 whitespace-nowrap bg-linear-to-b from-white to-transparent to-20%">
+    <div
+      class="absolute h-dvh w-full top-0 whitespace-nowrap bg-linear-to-b from-white to-transparent to-20% dark:bg-none"
+    >
+      <div class="absolute h-dvh w-full top-0 -z-5 dark:bg-black/50"></div>
       <!-- 装饰条 -->
-      <div class="absolute top-16 left-4 md:top-32 md:left-8 opacity-50 h-6 w-6 border-l-2 border-t-2 border-zinc-900">
-      </div>
-      <div class="absolute bottom-16 right-8 opacity-50 h-6 w-6 border-r-2 border-b-2 border-zinc-900"></div>
       <div
-        class="absolute left-[3.2vw] bottom-[6.4vh] w-[48vw] h-px bg-linear-to-r from-zinc-900/0 via-zinc-900 to-zinc-900/0">
-      </div>
+        class="absolute top-16 left-4 md:top-32 md:left-8 opacity-50 h-6 w-6 border-l-2 border-t-2 border-zinc-900"
+      ></div>
       <div
-        class="absolute left-[6.4vw] bottom-[12vh] md:bottom-[1.2vh] h-[64vw] md:h-[32vw] w-px bg-linear-to-t from-zinc-900/0 via-zinc-900 to-zinc-900/0">
-      </div>
+        class="absolute bottom-16 right-8 opacity-50 h-6 w-6 border-r-2 border-b-2 border-zinc-900"
+      ></div>
+      <div
+        class="absolute left-[3.2vw] bottom-[6.4vh] w-[48vw] h-px bg-linear-to-r from-zinc-900/0 via-zinc-900 to-zinc-900/0"
+      ></div>
+      <div
+        class="absolute left-[6.4vw] bottom-[12vh] md:bottom-[1.2vh] h-[64vw] md:h-[32vw] w-px bg-linear-to-t from-zinc-900/0 via-zinc-900 to-zinc-900/0"
+      ></div>
       <!-- 大字介绍 -->
       <div class="absolute left-[10vw] bottom-[10vh] flex flex-col gap-4">
         <span class="text-xl md:text-4xl font-black">小榄もしあげるよ&nbsp;&nbsp;^⌯𖥦⌯^੭</span>
         <div class="flex gap-4">
           <span
-v-for="(skill, index) in skill_languages" :key="index"
-            class="bg-black text-white text-sm md:text-xl rounded-full px-2">
+            v-for="(skill, index) in skill_languages"
+            :key="index"
+            class="bg-black text-white text-sm md:text-xl rounded-full px-2"
+          >
             {{ skill }}
           </span>
         </div>
-        <span class="text-4xl md:text-8xl font-black text-white mix-blend-difference">OLIVETINT.COM</span>
+        <span class="-z-10 text-4xl md:text-8xl font-black text-white mix-blend-difference"
+          >OLIVETINT.COM</span
+        >
       </div>
       <!-- 侧边文字 -->
-      <div class="flex items-center gap-4 absolute right-[8vw] top-[12vh] [writing-mode:vertical-rl]">
+      <div
+        class="flex items-center gap-4 absolute right-[8vw] top-[12vh] [writing-mode:vertical-rl]"
+      >
         <span class="text-4xl">博客</span>
         <div class="h-px w-16 bg-linear-to-r from-zinc-900/0 via-zinc-900 to-zinc-900/0"></div>
         <span class="uppercase text-sm tracking-[0.25rem]">olive</span>
-        <Icon class="text-red-500" name="tabler:heart" />
+        <Icon
+          class="text-red-500"
+          name="tabler:heart"
+        />
         <span class="uppercase text-sm tracking-[0.25rem]">Come on and work hard</span>
       </div>
     </div>
-    <div class="h-dvh w-full bg-white flex items-center justify-center text-9xl">内容施工中</div>
+    <div class="h-dvh w-full bg-zinc-50 dark:bg-zinc-900 flex items-center justify-center text-9xl">
+      内容施工中
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-const skill_languages: string[] = ['JavaScript', 'Golang', 'Vue']
+  definePageMeta({
+    title: '首页',
+    name: 'home',
+  })
+  const skill_languages: string[] = ['JavaScript', 'Golang', 'Vue']
 </script>

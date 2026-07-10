@@ -1,5 +1,5 @@
 <template>
-  <div class="relative py-16 flex flex-col gap-4 z-0">
+  <div class="relative py-16 flex flex-col gap-4 z-0 text-zinc-800 dark:text-zinc-100">
     <PageHeader
       class="px-[10vw]"
       :stats="{ 文章总数: post_stats.data.value?.data.total ?? 0 }"
@@ -15,7 +15,7 @@
           :key="cat"
         >
           <ToggleGroup.Item
-            class="relative overflow-hidden border-b border-zinc-700 rounded-xl px-3 py-1 flex items-center gap-1"
+            class="relative overflow-hidden border-b border-zinc-700 dark:border-zinc-400 rounded-xl px-3 py-1 flex items-center gap-1"
             :value="cat"
           >
             <Icon
@@ -43,7 +43,7 @@
               <TagsInput.Item
                 v-for="tag in query_tag"
                 :key="tag"
-                class="flex flex-nowrap text-nowrap items-center bg-zinc-950 text-white p-1 rounded"
+                class="flex flex-nowrap text-nowrap items-center text-zinc-100 bg-zinc-900 p-1 rounded"
                 :value="tag"
               >
                 <TagsInput.ItemText />
@@ -60,7 +60,9 @@
             </TagsInput.Root>
             <Combobox.Trigger><Icon name="tabler:chevron-down" /></Combobox.Trigger>
           </Combobox.Anchor>
-          <Combobox.Content class="absolute bg-white w-full mt-2 border rounded shadow-xl z-10">
+          <Combobox.Content
+            class="absolute bg-zinc-50 dark:bg-zinc-800 w-full mt-2 border rounded shadow-xl z-10"
+          >
             <Combobox.Viewport>
               <Combobox.Empty>暂时没有此标签哦</Combobox.Empty>
               <Combobox.Item
@@ -92,18 +94,20 @@
               <!-- 左侧创建时间 -->
               <div class="flex flex-col items-center justify-between gap-1">
                 <div class="flex flex-col items-center justify-start gap-1">
-                  <time
+                  <NuxtTime
                     class="text-base text-[#e3769b]"
                     :datetime="
-                      articles.created_at_display?.month + '-' + articles.created_at_display?.day
+                      (articles.created_at_display?.month ?? '00') +
+                      '-' +
+                      (articles.created_at_display?.day ?? '00')
                     "
                     >{{ articles.created_at_display?.month }}.{{ articles.created_at_display?.day }}
-                  </time>
-                  <time
+                  </NuxtTime>
+                  <NuxtTime
                     class="text-xs font-light"
-                    :datetime="articles.created_at_display?.year"
+                    :datetime="articles.created_at_display?.year ?? '0000'"
                     >{{ articles.created_at_display?.year }}
-                  </time>
+                  </NuxtTime>
                 </div>
                 <Icon
                   class="text-xl text-[#e3769b]"
@@ -112,7 +116,7 @@
               </div>
               <!-- 右侧文章详情 -->
               <div class="flex justify-between items-end w-full">
-                <div class="flex flex-col items-start gap-1">
+                <div class="flex flex-col items-start gap-2">
                   <NuxtLink
                     class="text-2xl font-medium"
                     :to="`/post/${articles.short_id}`"
@@ -130,13 +134,13 @@
                       />
                       <span class="px-2">
                         <!-- 总字数&nbsp; -->
-                        {{ articles.word_count }}字</span
-                      >
+                        {{ articles.word_count }}字
+                      </span>
                     </span>
                     <span class="flex items-center">
                       <Icon
                         class="text-base text-[#e3769b]"
-                        name="tabler:books"
+                        name="tabler:category"
                       />
                       <Switch.Root
                         v-model="query_category"
@@ -164,7 +168,9 @@
                       </ToggleGroup.Root>
                     </span>
                   </div>
-                  <p class="text-sm font-light">{{ articles.desc }}</p>
+                  <p class="text-xs md:text-sm text-zinc-500 font-normal max-w-sm leading-relaxed">
+                    {{ articles.desc }}
+                  </p>
                 </div>
                 <!-- <div class="flex h-full">收藏</div> -->
               </div>
@@ -201,7 +207,7 @@
               <Pagination.ListItem
                 v-if="page.type === 'page'"
                 :key="index"
-                class="w-9 h-9 border dark:border-stone-800 rounded-xl data-selected:bg-white! data-selected:shadow-sm data-selected:text-blackA11 hover:bg-white dark:hover:bg-stone-700/70 transition"
+                class="w-9 h-9 border dark:border-stone-800 rounded-xl text-zinc-800 data-selected:bg-white! data-selected:shadow-sm data-selected:text-blackA11 hover:bg-white dark:hover:bg-stone-700/70 transition"
                 :value="page.value"
               />
               <Pagination.Ellipsis

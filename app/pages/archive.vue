@@ -3,6 +3,10 @@
 </template>
 
 <script setup lang="ts">
+  definePageMeta({
+    title: '归档页',
+    name: 'archive',
+  })
   const { data } = await useAsyncData('posts:all', async () => {
     let articles
     try {
