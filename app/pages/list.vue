@@ -1,186 +1,202 @@
 <template>
-  <div class="relative py-16 flex flex-col gap-4 z-0 text-zinc-800 dark:text-zinc-100">
+  <div class="relative flex flex-col gap-4 z-0 text-primary">
     <PageHeader
-      class="px-[10vw]"
-      :stats="{ 文章总数: post_stats.data.value?.data.total ?? 0 }"
+      class="px-[12vw]"
+      :stats="{
+        文章: post_stats.total ?? 0,
+      }"
     />
-    <div class="relative px-[10vw] flex flex-col gap-6 py-4">
-      <ToggleGroup.Root
-        v-model="query_category"
-        class="flex flex-wrap gap-4"
-        default-value=""
-      >
-        <template
-          v-for="(count_cate, cat) in categorylist"
-          :key="cat"
-        >
-          <ToggleGroup.Item
-            class="relative overflow-hidden border-b border-zinc-700 dark:border-zinc-400 rounded-xl px-3 py-1 flex items-center gap-1"
-            :value="cat"
-          >
-            <Icon
-              v-show="cat === query_category"
-              class="absolute top-0 left-0"
-              name="tabler:bookmark"
-            />
-            {{ cat || '全部' }}&nbsp;{{ count_cate }}
-          </ToggleGroup.Item>
-        </template>
-      </ToggleGroup.Root>
-      <div>
-        <Combobox.Root
-          v-model="query_tag"
-          class="relative inline-block"
-          multiple
-          open-on-click
-          open-on-focus
-        >
-          <Combobox.Anchor class="flex justify-between border rounded-xl p-2 w-xs">
-            <TagsInput.Root
-              v-model="query_tag"
-              class="flex gap-2 flex-wrap"
+    <div class="relative px-[12vw] flex flex-col py-4">
+      <div class="flex flex-row-reverse gap-16">
+        <div class="flex flex-col gap-8 w-[20vw] min-w-10">
+          <div class="flex flex-col gap-2">
+            <Label
+              class="text-xl"
+              for="cate"
             >
-              <TagsInput.Item
-                v-for="tag in query_tag"
-                :key="tag"
-                class="flex flex-nowrap text-nowrap items-center text-zinc-100 bg-zinc-900 p-1 rounded"
-                :value="tag"
+              分类
+            </Label>
+            <ToggleGroup.Root
+              id="cate"
+              v-model="query_category"
+              class="flex flex-wrap gap-2"
+              default-value=""
+            >
+              <template
+                v-for="(count_cate, cat) in categorylist"
+                :key="cat"
               >
-                <TagsInput.ItemText />
-                <TagsInput.ItemDelete class="flex items-center justify-center">
-                  <Icon name="tabler:x" />
-                </TagsInput.ItemDelete>
-              </TagsInput.Item>
-              <Combobox.Input as-child>
-                <TagsInput.Input
-                  class="focus:outline-none border-b"
+                <ToggleGroup.Item
+                  class="relative overflow-hidden border-b border-primary rounded px-1 flex items-center"
+                  :value="cat"
+                >
+                  <Icon
+                    :class="[
+                      cat === query_category ? 'translate-y-0' : '-translate-y-4',
+                      'absolute top-0 left-0 text-accent transition-[translate] duration-400',
+                    ]"
+                    name="tabler:bookmark"
+                  />
+                  <div
+                    :class="[
+                      cat === query_category ? 'w-4' : 'w-0',
+                      'transition-[width] duration-400',
+                    ]"
+                  ></div>
+                  {{ cat || '全部' }}&nbsp;{{ count_cate }}
+                </ToggleGroup.Item>
+              </template>
+            </ToggleGroup.Root>
+          </div>
+          <div class="flex flex-col gap-2">
+            <Label
+              class="text-xl"
+              for="tag"
+            >
+              标签
+            </Label>
+            <Combobox.Root
+              id="tag"
+              v-model="query_tag"
+              class="relative flex flex-col min-w-0 group"
+              multiple
+              open
+            >
+              <Combobox.Anchor>
+                <Combobox.Input
+                  class="focus:outline-none border-b w-full"
                   placeholder="+按标签浏览"
                 />
-              </Combobox.Input>
-            </TagsInput.Root>
-            <Combobox.Trigger><Icon name="tabler:chevron-down" /></Combobox.Trigger>
-          </Combobox.Anchor>
-          <Combobox.Content
-            class="absolute bg-zinc-50 dark:bg-zinc-800 w-full mt-2 border rounded shadow-xl z-10"
-          >
-            <Combobox.Viewport>
-              <Combobox.Empty>暂时没有此标签哦</Combobox.Empty>
-              <Combobox.Item
-                v-for="(_, tag) in tagList"
-                :key="tag"
-                class="relative flex items-center h-6.25 pr-8.75 pl-6.25 select-none data-highlighted:bg-zinc-950 data-highlighted:text-white"
-                :value="tag"
-              >
-                <Combobox.ItemIndicator
-                  class="absolute left-0 w-6.25 inline-flex items-center justify-center"
+              </Combobox.Anchor>
+              <Combobox.Content class="flex flex-row! flex-wrap gap-2 w-full top-full mt-2 z-10">
+                <Combobox.Empty>暂时没有此标签哦</Combobox.Empty>
+                <Combobox.Item
+                  v-for="(_, tag) in tagList"
+                  :key="tag"
+                  class="relative text-nowrap flex items-center select-none border-b border-primary rounded px-1 group-focus-within:data-highlighted:bg-zinc-950 group-focus-within:data-highlighted:text-white"
+                  :value="tag"
                 >
-                  <Icon name="tabler:check" />
-                </Combobox.ItemIndicator>
-                {{ tag }}
-              </Combobox.Item>
-            </Combobox.Viewport>
-          </Combobox.Content>
-        </Combobox.Root>
-      </div>
-      <!-- 文章列表栏 -->
-      <ul class="flex flex-col tracking-[0.15rem]">
-        <li
-          v-for="articles in post_list"
-          :key="articles.short_id"
-          class="relative border-t border-olive-400/70 last:border-b"
-        >
-          <div class="relative z-0 h-full w-full">
-            <div class="p-4 flex gap-8">
-              <!-- 左侧创建时间 -->
-              <div class="flex flex-col items-center justify-between gap-1">
-                <div class="flex flex-col items-center justify-start gap-1">
-                  <NuxtTime
-                    class="text-base text-[#e3769b]"
-                    :datetime="
-                      (articles.created_at_display?.month ?? '00') +
-                      '-' +
-                      (articles.created_at_display?.day ?? '00')
-                    "
-                    >{{ articles.created_at_display?.month }}.{{ articles.created_at_display?.day }}
-                  </NuxtTime>
-                  <NuxtTime
-                    class="text-xs font-light"
-                    :datetime="articles.created_at_display?.year ?? '0000'"
-                    >{{ articles.created_at_display?.year }}
-                  </NuxtTime>
-                </div>
-                <Icon
-                  class="text-xl text-[#e3769b]"
-                  name="tabler:clock"
-                />
-              </div>
-              <!-- 右侧文章详情 -->
-              <div class="flex justify-between items-end w-full">
-                <div class="flex flex-col items-start gap-2">
-                  <NuxtLink
-                    class="text-2xl font-medium"
-                    :to="`/post/${articles.short_id}`"
-                    >{{ articles.title }}
-                    <span
-                      aria-hidden="true"
-                      class="absolute inset-0 z-0"
-                    ></span>
-                  </NuxtLink>
-                  <div class="text-xs flex gap-2 whitespace-nowrap flex-wrap z-10">
-                    <span class="flex items-center">
-                      <Icon
-                        class="text-base text-[#e3769b]"
-                        name="tabler:mist"
-                      />
-                      <span class="px-2">
-                        <!-- 总字数&nbsp; -->
-                        {{ articles.word_count }}字
-                      </span>
-                    </span>
-                    <span class="flex items-center">
-                      <Icon
-                        class="text-base text-[#e3769b]"
-                        name="tabler:category"
-                      />
-                      <Switch.Root
-                        v-model="query_category"
-                        class="px-2 data-[state=checked]:text-[#e3769b]"
-                        false-value=""
-                        :true-value="articles.category"
-                        @click.prevent.stop
-                        >{{ articles.category }}</Switch.Root
-                      >
-                    </span>
-                    <span class="text-xs flex items-center flex-wrap">
-                      <Icon
-                        class="text-base text-[#e3769b]"
-                        name="tabler:tag"
-                      />
-                      <ToggleGroup.Root v-model="query_tag">
-                        <ToggleGroup.Item
-                          v-for="tag in articles.tags"
-                          :key="tag"
-                          class="border-r border-olive-600 last:border-none px-2 data-[state=on]:text-[#e3769b]"
-                          :value="tag"
-                          @click.prevent.stop
-                          >{{ tag }}
-                        </ToggleGroup.Item>
-                      </ToggleGroup.Root>
-                    </span>
-                  </div>
-                  <p class="text-xs md:text-sm text-zinc-500 font-normal max-w-sm leading-relaxed">
-                    {{ articles.desc }}
-                  </p>
-                </div>
-                <!-- <div class="flex h-full">收藏</div> -->
-              </div>
-            </div>
-            <span class="absolute right-0 bottom-4 text-xs text-[#e3769b] whitespace-nowrap z-10">
-              开始阅读 ->
-            </span>
+                  <Combobox.ItemIndicator
+                    class="absolute left-0 inline-flex items-center justify-center animate-scale-in"
+                  >
+                    <Icon name="tabler:check" />
+                  </Combobox.ItemIndicator>
+                  <div
+                    :class="[
+                      query_tag.includes(tag) ? 'w-3' : 'w-0',
+                      'transition-[width] duration-400',
+                    ]"
+                  ></div>
+                  {{ tag }}
+                </Combobox.Item>
+              </Combobox.Content>
+            </Combobox.Root>
           </div>
-        </li>
-      </ul>
+        </div>
+        <!-- 文章列表栏 -->
+        <ul class="flex flex-col flex-1">
+          <li
+            v-for="articles in post_list"
+            :key="articles.short_id"
+            class="relative border-t border-olive-400/70 last:border-b"
+          >
+            <div class="relative z-0 h-full w-full">
+              <div class="p-4 flex gap-8">
+                <!-- 左侧创建时间 -->
+                <div class="flex flex-col items-center justify-between gap-2">
+                  <div class="flex flex-col items-center justify-start gap-1">
+                    <NuxtTime
+                      class="text-sm font-medium text-nowrap text-accent"
+                      date-style="short"
+                      :datetime="new Date(articles.created_at)"
+                    />
+                    <div
+                      class="flex items-center text-nowrap text-[11px] font-medium text-secondary"
+                    >
+                      编辑于
+                      <NuxtTime
+                        class=""
+                        :datetime="new Date(articles.updated_at).getTime()"
+                        relative
+                      />
+                    </div>
+                  </div>
+                  <Icon
+                    class="text-lg text-[#e3769b]"
+                    name="tabler:clock"
+                  />
+                </div>
+                <!-- 右侧文章详情 -->
+                <div class="flex justify-between items-end w-full">
+                  <div class="flex flex-col items-start gap-2">
+                    <NuxtLink
+                      class="text-xl font-semibold tracking-tight"
+                      :to="`/post/${articles.short_id}`"
+                      >{{ articles.title }}
+                      <span
+                        aria-hidden="true"
+                        class="absolute inset-0 z-0"
+                      ></span>
+                    </NuxtLink>
+                    <div
+                      class="text-[13px] flex gap-3 whitespace-nowrap flex-wrap z-10 text-secondary"
+                    >
+                      <span class="flex items-center">
+                        <Icon
+                          class="text-base text-[#e3769b]"
+                          name="tabler:mist"
+                        />
+                        <span class="px-1.5"> {{ articles.word_count }}字 </span>
+                      </span>
+                      <span class="flex items-center">
+                        <Icon
+                          class="text-base text-[#e3769b]"
+                          name="tabler:category"
+                        />
+                        <Switch.Root
+                          v-model="query_category"
+                          class="px-1.5 data-[state=checked]:text-[#e3769b]"
+                          false-value=""
+                          :true-value="articles.category"
+                          @click.prevent.stop
+                          >{{ articles.category }}</Switch.Root
+                        >
+                      </span>
+                      <span class="flex items-center flex-wrap">
+                        <Icon
+                          class="text-base text-[#e3769b]"
+                          name="tabler:tag"
+                        />
+                        <ToggleGroup.Root
+                          v-model="query_tag"
+                          class="flex items-center"
+                        >
+                          <ToggleGroup.Item
+                            v-for="tag in articles.tags"
+                            :key="tag"
+                            class="border-r border-olive-600 last:border-none px-1.5 data-[state=on]:text-[#e3769b]"
+                            :value="tag"
+                            @click.prevent.stop
+                            >{{ tag }}
+                          </ToggleGroup.Item>
+                        </ToggleGroup.Root>
+                      </span>
+                    </div>
+                    <p class="text-sm text-secondary/90 font-normal max-w-sm leading-relaxed">
+                      {{ articles.desc }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <span
+                class="absolute right-0 bottom-4 text-[11px] tracking-wider text-[#e3769b] whitespace-nowrap z-10"
+              >
+                开始阅读 ->
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
       <div class="sticky bottom-8 flex justify-center">
         <Pagination.Root
           v-model="query_page"
@@ -236,15 +252,19 @@
 </template>
 
 <script setup lang="ts">
-  import { Combobox, Pagination, Switch, TagsInput, ToggleGroup } from 'reka-ui/namespaced'
+  import { Combobox, Label, Pagination, Switch, ToggleGroup } from 'reka-ui/namespaced'
   import type { ApiArticleStats, ApiResponse, PageResponse } from '~/types'
+  definePageMeta({
+    title: '文章列表',
+    name: 'list',
+  })
 
   const query_category = useRouteQuery('category', '', { transform: String })
   const categorylist = computed<Record<string, number>>(() => {
-    if (post_stats.data.value) {
+    if (post_stats.value) {
       return {
-        '': post_stats.data.value.data.total,
-        ...post_stats.data.value.data.total_by_category,
+        '': post_stats.value.total,
+        ...post_stats.value.total_by_category,
       }
     }
     return { '': 0 }
@@ -257,7 +277,7 @@
     },
   })
   const tagList = computed(() => {
-    return post_stats.data.value?.data?.total_by_tag || {}
+    return post_stats.value.total_by_tag || {}
   })
   const query_page = useRouteQuery('page', 1, { transform: Number })
   const res_posts = await useAPI<ApiResponse<PageResponse<ArticleDisplay>>>('articles', {
@@ -268,11 +288,19 @@
       })
       return res
     },
+    watch: false,
+  })
+  watch([query_page, query_tag, query_category], () => {
+    res_posts.refresh()
   })
   const page_size = computed<number>(() => res_posts.data.value?.data.page_size ?? 10)
   const post_list_total = computed<number>(() => res_posts.data.value?.data.total ?? 0)
   const post_list = computed(() => res_posts.data.value?.data.list ?? [])
-  console.log('总页数', post_list_total.value)
-
-  const post_stats = await useAPI<ApiResponse<ApiArticleStats>>('articles/stats')
+  watch(
+    () => post_list.value,
+    (newQuestion) => {
+      console.log('查询页数据', newQuestion)
+    }
+  )
+  const post_stats = useState<ApiArticleStats>('post:stats')
 </script>

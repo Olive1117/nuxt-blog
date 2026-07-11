@@ -8,10 +8,46 @@ Scale: scale
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 @theme {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-weak: var(--weak);
+  --color-background: var(--background);
+  --color-block: var(--block);
+  --color-shadow: var(--shadow);
+  --color-selection: var(--selection);
+
+  --color-accent: var(--accent-color);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-light: var(--accent-light);
+
   --animate-scale-in: scale-in 200ms ease-out;
   --animate-scale-out: scale-out 150ms ease-in;
   --animate-fade-in: fade-in 200ms ease-out;
   --animate-fade-out: fade-out 150ms ease-in;
+}
+:root {
+  scrollbar-gutter: stable;
+  background: var(--background);
+  --primary: #2a2a28;
+  --secondary: #7e7e7b;
+  --weak: #9f9f9c;
+  --background: #fffffd;
+  --block: #eee;
+  --shadow: #cdcdcc;
+  --selection: #adadacc3;
+
+  --accent-color: #e3769b;
+  --accent-hover: #0052a3;
+  --accent-light: #e6f0ff;
+}
+[data-theme='dark'] {
+  --primary: #dddddb;
+  --secondary: #9e9e9b;
+  --weak: #5d5d5a;
+  --background: #0e0e0c;
+  --block: #1e1e1e;
+  --shadow: #323231;
+  --selection: #adadacc3;
 }
 
 @keyframes scale-in {

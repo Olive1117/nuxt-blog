@@ -1,43 +1,52 @@
 <template>
   <div class="details">
-    <div class="px-[10vw] pt-32 pb-8 border-b flex flex-col gap-4">
+    <div class="px-[12vw] pt-16 pb-8 border-b flex flex-col gap-4">
       <h1 class="text-4xl font-bold">{{ res.frontmatter?.title }}</h1>
       <p class="text-lg">{{ res.frontmatter?.desc }}</p>
-      <div class="flex gap-2">
-        <div class="flex items-center">
-          <Icon
-            class="flex items-center justify-center"
-            name="tabler:clock"
-          />
-          <NuxtTime :datetime="new Date()">{{
-            res.frontmatter.time ?? post_details.created_at
-          }}</NuxtTime>
+      <div class="flex justify-between">
+        <div class="flex gap-2">
+          <div class="flex items-center">
+            <Icon
+              class="flex items-center justify-center"
+              name="tabler:clock"
+            />
+            <NuxtTime :datetime="new Date()">{{
+              res.frontmatter.time ?? post_details.created_at
+            }}</NuxtTime>
+          </div>
+          <div class="flex items-center">
+            <Icon
+              class="flex items-center justify-center"
+              name="tabler:category"
+            />
+            <NuxtLink :to="{ name: 'list', query: { category: post_details.category } }">
+              {{ post_details.category }}
+            </NuxtLink>
+          </div>
+          <div class="flex items-center">
+            <Icon
+              class="flex items-center justify-center"
+              name="tabler:tag"
+            />
+            <NuxtLink
+              v-for="tag in post_details.tags"
+              :key="tag"
+              :to="{ name: 'list', query: { tags: tag } }"
+            >
+              {{ tag }}
+            </NuxtLink>
+          </div>
         </div>
-        <div class="flex items-center">
-          <Icon
-            class="flex items-center justify-center"
-            name="tabler:category"
-          />
-          <NuxtLink :to="`/`">
-            {{ post_details.category }}
-          </NuxtLink>
-        </div>
-        <div class="flex items-center">
-          <Icon
-            class="flex items-center justify-center"
-            name="tabler:tag"
-          />
-          <NuxtLink
-            v-for="tag in post_details.tags"
-            :key="tag"
-          >
-            {{ tag }}
-          </NuxtLink>
+        <div>
+          <div>
+            <Icon name="tabler:mist" />
+            {{ post_details.word_count }}字
+          </div>
         </div>
       </div>
     </div>
     <ComarkRenderer
-      class="px-[10vw] pt-16 prose prose-stone dark:prose-invert prose-pre:bg-stone-100 dark:prose-pre:bg-stone-900 max-w-none"
+      class="px-[12vw] pt-16 prose prose-stone dark:prose-invert prose-pre:bg-stone-100 dark:prose-pre:bg-stone-900 max-w-none"
       :tree="res"
     />
   </div>
@@ -45,6 +54,10 @@
 
 <script setup lang="ts">
   import type { ApiResponse } from '~/types'
+  definePageMeta({
+    title: '文章详细',
+    name: 'post',
+  })
   const route = useRoute()
   const res_post = await useAPI<ApiResponse<ArticleDisplay>>(`articles/${route.params.id}`, {
     transform: (res) => {
