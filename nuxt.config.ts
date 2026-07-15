@@ -2,6 +2,13 @@
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
+  $production: {
+    vite: {
+      esbuild: {
+        drop: ['debugger', 'console'],
+      },
+    },
+  },
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   css: ['@/assets/app.css'],
@@ -43,9 +50,6 @@ export default defineNuxtConfig({
     optimizeDeps: {
       include: ['reka-ui', 'reka-ui/namespaced'],
     },
-    // esbuild: {
-    //   drop: ['debugger', 'console'],
-    // },
   },
   nitro: {
     devProxy: {
