@@ -10,7 +10,6 @@ RUN pnpm install --frozen-lockfile
 
 COPY . .
 
-ENV NODE_ENV=production
 RUN pnpm run build
 
 FROM node:22-alpine AS runner
@@ -18,10 +17,6 @@ FROM node:22-alpine AS runner
 WORKDIR /app
 
 COPY --from=builder /app/.output ./.output
-
-ENV NODE_ENV=production
-ENV PORT=3000
-ENV HOST=0.0.0.0
 
 EXPOSE 3000
 
