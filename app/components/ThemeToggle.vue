@@ -21,10 +21,8 @@
             type="single"
             @update:model-value="
               (val) => {
-                console.log('当前状态', colorMode.preference)
                 if (val) {
                   colorMode.preference = val.toString()
-                  console.log(val, colorMode.preference)
                 }
               }
             "

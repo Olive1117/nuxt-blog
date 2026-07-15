@@ -9,7 +9,7 @@ export default defineNuxtPlugin({
     const api = $fetch.create({
       baseURL,
       onRequest({ request, options }) {
-        console.log('请求:', request, 'opt', options.query)
+        // console.log('请求:', request, 'opt', options.query)
         // console.log('请求:', request)
 
         options.headers = options.headers || {}
@@ -27,7 +27,7 @@ export default defineNuxtPlugin({
           auth_store.logout()
           auth_store.openLogin()
         }
-        console.log('响应:', response._data, 'opt', options.query)
+        // console.log('响应:', response._data, 'opt', options.query)
       },
     })
     return {

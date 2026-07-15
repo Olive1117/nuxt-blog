@@ -7,8 +7,8 @@
       }"
     />
     <div class="relative px-[12vw] flex flex-col py-4">
-      <div class="flex flex-row-reverse gap-16">
-        <div class="flex flex-col gap-8 w-[20vw] min-w-10">
+      <div class="flex flex-col md:flex-row-reverse gap-8 md:gap-16">
+        <div class="flex flex-col gap-8 w-full md:w-[20vw] min-w-24">
           <div class="flex flex-col gap-2">
             <Label
               class="text-xl"
@@ -73,7 +73,7 @@
                 <Combobox.Item
                   v-for="(_, tag) in tagList"
                   :key="tag"
-                  class="relative text-nowrap flex items-center select-none border-b border-primary rounded px-1 group-focus-within:data-highlighted:bg-zinc-950 group-focus-within:data-highlighted:text-white"
+                  class="relative text-nowrap flex items-center select-none border-b border-primary rounded px-1 group-focus-within:data-highlighted:bg-accent group-focus-within:data-highlighted:text-white"
                   :value="tag"
                 >
                   <Combobox.ItemIndicator
@@ -182,7 +182,7 @@
                         </ToggleGroup.Root>
                       </span>
                     </div>
-                    <p class="text-sm text-secondary/90 font-normal max-w-sm leading-relaxed">
+                    <p class="text-sm text-primary font-normal max-w-sm leading-relaxed">
                       {{ articles.desc }}
                     </p>
                   </div>

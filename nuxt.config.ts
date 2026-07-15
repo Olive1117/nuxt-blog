@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@pinia/nuxt',
     '@comark/nuxt',
+    'nuxt-codemirror',
   ],
   devServer: { port: 3000 },
   runtimeConfig: {
@@ -42,6 +43,9 @@ export default defineNuxtConfig({
     optimizeDeps: {
       include: ['reka-ui', 'reka-ui/namespaced'],
     },
+    // esbuild: {
+    //   drop: ['debugger', 'console'],
+    // },
   },
   nitro: {
     devProxy: {

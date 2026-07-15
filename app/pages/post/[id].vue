@@ -46,9 +46,10 @@
       </div>
     </div>
     <ComarkRenderer
-      class="px-[12vw] pt-16 prose prose-stone dark:prose-invert prose-pre:bg-stone-100 dark:prose-pre:bg-stone-900 max-w-none"
+      class="px-[12vw] pt-16 prose prose-stone dark:prose-invert max-w-none"
       :tree="res"
     />
+    <div>{{ res }}</div>
   </div>
 </template>
 
@@ -67,14 +68,5 @@
   })
   const post_details = computed(() => res_post.data.value?.data ?? ({} as ArticleDisplay))
   const res = await useMarkdown(post_details.value.content)
+  console.log('meta', res.meta, 'frontmatter', res.frontmatter)
 </script>
-
-<style scoped>
-  html.dark .details :deep(.shiki span) {
-    color: var(--shiki-dark) !important;
-    background-color: var(--shiki-dark-bg) !important;
-    font-style: var(--shiki-dark-font-style) !important;
-    font-weight: var(--shiki-dark-font-weight) !important;
-    text-decoration: var(--shiki-dark-text-decoration) !important;
-  }
-</style>

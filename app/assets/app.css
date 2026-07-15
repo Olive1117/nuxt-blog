@@ -10,10 +10,14 @@ Scale: scale
 @theme {
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
+  /* 弱化色 — 占位符文字、禁用状态、次要说明文字、分割线 */
   --color-weak: var(--weak);
   --color-background: var(--background);
+  /* 卡片/区块背景 — 卡片、面板、弹窗、输入框的背景（比页面背景稍深或稍浅，形成层级） */
   --color-block: var(--block);
+  /* 阴影色 — 卡片阴影、弹窗阴影、悬浮效果 */
   --color-shadow: var(--shadow);
+  /* 	文字选中色 — 鼠标选中文字时的背景高亮色 */
   --color-selection: var(--selection);
 
   --color-accent: var(--accent-color);
@@ -24,8 +28,30 @@ Scale: scale
   --animate-scale-out: scale-out 150ms ease-in;
   --animate-fade-in: fade-in 200ms ease-out;
   --animate-fade-out: fade-out 150ms ease-in;
+
+  --color-md: var(--md-color);
+  --color-md-hover: var(--md-hover-color);
+  --color-md-bk: var(--md-bk-color);
+  --color-md-bk-outstand: var(--md-bk-color-outstand);
+  --color-md-bk-hover: var(--md-bk-hover-color);
+
+  /* 边框颜色 */
+  --color-md-border: var(--md-border-color);
+  --color-md-border-hover: var(--md-border-hover-color);
+  --color-md-border-active: var(--md-border-active-color);
+
+  /* 遮罩与阴影 */
+  --color-md-modal-mask: var(--md-modal-mask);
+  --color-md-modal-shadow: var(--md-modal-shadow);
+
+  /* 滚动条 */
+  --color-md-scrollbar-bg: var(--md-scrollbar-bg-color);
+  --color-md-scrollbar-thumb: var(--md-scrollbar-thumb-color);
+  --color-md-scrollbar-thumb-hover: var(--md-scrollbar-thumb-hover-color);
+  --color-md-scrollbar-thumb-active: var(--md-scrollbar-thumb-active-color);
 }
 :root {
+  /* 来自 https://ttio.cc/ */
   scrollbar-gutter: stable;
   background: var(--background);
   --primary: #2a2a28;
@@ -39,6 +65,24 @@ Scale: scale
   --accent-color: #e3769b;
   --accent-hover: #0052a3;
   --accent-light: #e6f0ff;
+
+  /* 来自 https://github.com/imzbf/md-editor-v3/blob/develop/packages/MdEditor/styles/vars.scss */
+  --md-color: #3f4a54;
+  --md-hover-color: #000;
+  --md-bk-color: #fff;
+  --md-bk-color-outstand: #f2f2f2;
+  --md-bk-hover-color: #f5f7fa;
+  --md-border-color: #e6e6e6;
+  --md-border-hover-color: #b9b9b9;
+  --md-border-active-color: #999;
+
+  --md-modal-mask: #00000073;
+  --md-modal-shadow: 0px 6px 24px 2px #00000019;
+
+  --md-scrollbar-bg-color: #e2e2e2;
+  --md-scrollbar-thumb-color: #0000004d;
+  --md-scrollbar-thumb-hover-color: #00000059;
+  --md-scrollbar-thumb-active-color: #00000061;
 }
 [data-theme='dark'] {
   --primary: #dddddb;
@@ -48,6 +92,23 @@ Scale: scale
   --block: #1e1e1e;
   --shadow: #323231;
   --selection: #adadacc3;
+
+  --md-color: #999;
+  --md-hover-color: #bbb;
+  --md-bk-color: #000;
+  --md-bk-color-outstand: #333;
+  --md-bk-hover-color: #1b1a1a;
+  --md-border-color: #2d2d2d;
+  --md-border-hover-color: #636262;
+  --md-border-active-color: #777;
+
+  /* 遮罩在暗色下保持一致，所以这里无需重复定义 --md-modal-mask */
+  --md-modal-shadow: 0px 6px 24px 2px #00000066;
+
+  --md-scrollbar-bg-color: #0f0f0f;
+  --md-scrollbar-thumb-color: #2d2d2d;
+  --md-scrollbar-thumb-hover-color: #3a3a3a;
+  --md-scrollbar-thumb-active-color: #3a3a3a;
 }
 
 @keyframes scale-in {
