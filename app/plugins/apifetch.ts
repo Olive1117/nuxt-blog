@@ -9,7 +9,7 @@ export default defineNuxtPlugin({
     const api = $fetch.create({
       baseURL,
       onRequest({ request, options }) {
-        // console.log('请求:', request, 'opt', options.query)
+        console.log('请求:', request, 'opt', options.body)
         // console.log('请求:', request)
 
         options.headers = options.headers || {}

@@ -98,3 +98,17 @@ export interface FriendLink {
   logo: string
   description: string
 }
+
+export interface ArticleDTO {
+  title: string
+  desc: string
+  content: string
+  status: number
+  slug: string
+
+  category: string
+
+  tags: string[]
+
+  image_count: number
+}

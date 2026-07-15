@@ -221,7 +221,6 @@
       children: [
         { name: '文章列表', icon: 'tabler:list', path: '/list', isFolder: false, isUrl: false },
         { name: '归档', icon: 'tabler:archive', path: '/archive', isFolder: false, isUrl: false },
-        { name: '分类', icon: 'tabler:folders', path: '/category', isFolder: false, isUrl: false },
         {
           name: '新建文章',
           icon: 'tabler:file-plus',

@@ -1,14 +1,14 @@
 <template>
-  <div class="relative flex flex-col gap-4 z-0 text-primary">
+  <div class="relative flex flex-col z-0 text-primary">
     <PageHeader
       class="px-[12vw]"
       :stats="{
         文章: post_stats.total ?? 0,
       }"
     />
-    <div class="relative px-[12vw] flex flex-col py-4">
+    <div class="relative px-[12vw] flex flex-col">
       <div class="flex flex-col md:flex-row-reverse gap-8 md:gap-16">
-        <div class="flex flex-col gap-8 w-full md:w-[20vw] min-w-24">
+        <div class="flex flex-col gap-8 w-full md:w-[20vw] min-w-24 py-16">
           <div class="flex flex-col gap-2">
             <Label
               class="text-xl"
@@ -98,7 +98,7 @@
           <li
             v-for="articles in post_list"
             :key="articles.short_id"
-            class="relative border-t border-olive-400/70 last:border-b"
+            class="relative border-t border-olive-400/70 last:border-b first:border-none"
           >
             <div class="relative z-0 h-full w-full">
               <div class="p-4 flex gap-8">
@@ -133,10 +133,7 @@
                       class="text-xl font-semibold tracking-tight"
                       :to="`/post/${articles.short_id}`"
                       >{{ articles.title }}
-                      <span
-                        aria-hidden="true"
-                        class="absolute inset-0 z-0"
-                      ></span>
+                      <span class="absolute inset-0 z-0"></span>
                     </NuxtLink>
                     <div
                       class="text-[13px] flex gap-3 whitespace-nowrap flex-wrap z-10 text-secondary"
@@ -258,6 +255,7 @@
     title: '文章列表',
     name: 'list',
   })
+  const post_stats = useState<ApiArticleStats>('post:stats')
 
   const query_category = useRouteQuery('category', '', { transform: String })
   const categorylist = computed<Record<string, number>>(() => {
@@ -279,6 +277,8 @@
   const tagList = computed(() => {
     return post_stats.value.total_by_tag || {}
   })
+  console.log('检查', tagList.value)
+
   const query_page = useRouteQuery('page', 1, { transform: Number })
   const res_posts = await useAPI<ApiResponse<PageResponse<ArticleDisplay>>>('articles', {
     query: { query_page, tags: query_tag, category: query_category },
@@ -302,5 +302,4 @@
       console.log('查询页数据', newQuestion)
     }
   )
-  const post_stats = useState<ApiArticleStats>('post:stats')
 </script>

@@ -3,7 +3,7 @@ import emoji from '@comark/nuxt/plugins/emoji'
 import highlight from '@comark/nuxt/plugins/highlight'
 import summary from '@comark/nuxt/plugins/summary'
 import toc from '@comark/nuxt/plugins/toc'
-import math from '@comark/nuxt/plugins/math'
+import math from 'comark/plugins/math'
 import footnotes from '@comark/nuxt/plugins/footnotes'
 import taskList from '@comark/nuxt/plugins/task-list'
 import githubDark from '@shikijs/themes/github-dark'
@@ -22,7 +22,7 @@ import scss from '@shikijs/langs/scss'
 
 const parse = createParse({
   plugins: [
-    comarkLineNumbers(),
+    math(),
     highlight({
       themes: { light: githubLight, dark: githubDark },
       languages: [go, python, docker, json, ts, js, vue, bash, html, css, scss],
@@ -30,9 +30,9 @@ const parse = createParse({
     emoji(),
     toc(),
     summary(),
-    math(),
     footnotes(),
     taskList(),
+    comarkLineNumbers(),
   ],
 })
 

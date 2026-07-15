@@ -2,7 +2,7 @@
   <Dialog.Root v-model:open="auth_store.showLoginDialog">
     <Dialog.Portal>
       <Dialog.Overlay
-        class="bg-black/30 data-[state=open]:animate-overlayShow fixed inset-0 z-30"
+        class="bg-black/30 data-[state=open]:animate-overlayShow fixed inset-0 z-50"
       />
       <Dialog.Content
         class="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] max-h-[85vh] rounded-xl bg-white shadow-xl focus:outline-none z-100"

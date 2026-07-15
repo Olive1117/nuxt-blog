@@ -1,8 +1,8 @@
 <template>
   <div class="details">
     <div class="px-[12vw] pt-16 pb-8 border-b flex flex-col gap-4">
-      <h1 class="text-4xl font-bold">{{ res.frontmatter?.title }}</h1>
-      <p class="text-lg">{{ res.frontmatter?.desc }}</p>
+      <h1 class="text-4xl font-bold">{{ post_details.title }}</h1>
+      <p class="text-lg">{{ post_details.desc }}</p>
       <div class="flex justify-between">
         <div class="flex gap-2">
           <div class="flex items-center">
@@ -10,9 +10,9 @@
               class="flex items-center justify-center"
               name="tabler:clock"
             />
-            <NuxtTime :datetime="new Date()">{{
-              res.frontmatter.time ?? post_details.created_at
-            }}</NuxtTime>
+            <NuxtTime :datetime="new Date()">
+              {{ post_details.created_at }}
+            </NuxtTime>
           </div>
           <div class="flex items-center">
             <Icon
@@ -49,7 +49,6 @@
       class="px-[12vw] pt-16 prose prose-stone dark:prose-invert max-w-none"
       :tree="res"
     />
-    <div>{{ res }}</div>
   </div>
 </template>
 
