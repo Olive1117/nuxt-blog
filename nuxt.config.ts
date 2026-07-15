@@ -24,7 +24,7 @@ export default defineNuxtConfig({
   ],
   devServer: { port: 3000 },
   runtimeConfig: {
-    apiServerBase: 'http://localhost:8080/api/v1',
+    apiServerBase: 'http://blog-api/api/v1',
 
     public: {
       apiClientBase: '/api/v1',
