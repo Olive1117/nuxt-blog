@@ -8,10 +8,10 @@
     />
     <div class="relative px-[12vw] flex flex-col">
       <div class="flex flex-col md:flex-row-reverse gap-8 md:gap-16">
-        <div class="flex flex-col gap-8 w-full md:w-[20vw] min-w-24 py-16">
+        <div class="flex flex-col gap-8 w-full md:w-[20vw] min-w-24 pt-6 md:py-16">
           <div class="flex flex-col gap-2">
             <Label
-              class="text-xl"
+              class="text-md md:text-xl"
               for="cate"
             >
               分类
@@ -50,7 +50,7 @@
           </div>
           <div class="flex flex-col gap-2">
             <Label
-              class="text-xl"
+              class="text-md md:text-xl"
               for="tag"
             >
               标签
@@ -98,15 +98,19 @@
           <li
             v-for="articles in post_list"
             :key="articles.short_id"
-            class="relative border-t border-olive-400/70 last:border-b first:border-none"
+            class="relative border-t border-olive-400/70 last:border-b md:first:border-none"
           >
             <div class="relative z-0 h-full w-full">
-              <div class="p-4 flex gap-8">
+              <div class="p-4 flex flex-col md:flex-row gap-2 md:gap-8">
                 <!-- 左侧创建时间 -->
-                <div class="flex flex-col items-center justify-between gap-2">
-                  <div class="flex flex-col items-center justify-start gap-1">
+                <div
+                  class="flex flex-row items-start justify-between md:flex-col md:items-center gap-2"
+                >
+                  <div
+                    class="gap-4 md:gap-1 flex flex-row items-baseline justify-start md:flex-col md:items-center md:justify-start"
+                  >
                     <NuxtTime
-                      class="text-sm font-medium text-nowrap text-accent"
+                      class="text-xs md:text-sm font-medium text-nowrap text-accent"
                       date-style="short"
                       :datetime="new Date(articles.created_at)"
                     />
@@ -121,14 +125,16 @@
                       />
                     </div>
                   </div>
-                  <Icon
-                    class="text-lg text-[#e3769b]"
-                    name="tabler:clock"
-                  />
+                  <div class="hidden md:inline-block">
+                    <Icon
+                      class="text-lg text-[#e3769b]"
+                      name="tabler:clock"
+                    />
+                  </div>
                 </div>
                 <!-- 右侧文章详情 -->
                 <div class="flex justify-between items-end w-full">
-                  <div class="flex flex-col items-start gap-2">
+                  <div class="flex flex-col items-start gap-1 md:gap-2">
                     <NuxtLink
                       class="text-xl font-semibold tracking-tight font-serif"
                       :to="`/post/${articles.short_id}`"
@@ -136,18 +142,18 @@
                       <span class="absolute inset-0 z-0"></span>
                     </NuxtLink>
                     <div
-                      class="text-[13px] flex gap-3 whitespace-nowrap flex-wrap z-10 text-secondary"
+                      class="text-xs font-mono flex gap-3 whitespace-nowrap flex-wrap z-10 text-secondary"
                     >
                       <span class="flex items-center">
                         <Icon
-                          class="text-base text-[#e3769b]"
+                          class="text-sm text-[#e3769b]"
                           name="tabler:mist"
                         />
                         <span class="px-1.5"> {{ articles.word_count }}字 </span>
                       </span>
                       <span class="flex items-center">
                         <Icon
-                          class="text-base text-[#e3769b]"
+                          class="text-sm text-[#e3769b]"
                           name="tabler:category"
                         />
                         <Switch.Root
@@ -161,7 +167,7 @@
                       </span>
                       <span class="flex items-center flex-wrap">
                         <Icon
-                          class="text-base text-[#e3769b]"
+                          class="text-sm text-[#e3769b]"
                           name="tabler:tag"
                         />
                         <ToggleGroup.Root
