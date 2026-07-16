@@ -170,7 +170,7 @@
             ref="pEle"
             class="flex-1"
           >
-            <NuxtCodeMirror
+            <LazyNuxtCodeMirror
               ref="codemirrorRef"
               v-model="md.content"
               class="h-full"
