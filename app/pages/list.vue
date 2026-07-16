@@ -136,7 +136,7 @@
                 <div class="flex justify-between items-end w-full">
                   <div class="flex flex-col items-start gap-1 md:gap-2">
                     <NuxtLink
-                      class="text-xl font-semibold tracking-wide font-serif"
+                      class="text-xl font-normal tracking-normal font-serif"
                       :to="`/post/${articles.short_id}`"
                       >{{ articles.title }}
                       <span class="absolute inset-0 z-0"></span>
