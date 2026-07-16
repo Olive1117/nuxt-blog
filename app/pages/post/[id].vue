@@ -67,5 +67,5 @@
   })
   const post_details = computed(() => res_post.data.value?.data ?? ({} as ArticleDisplay))
   const res = await useMarkdown(post_details.value.content)
-  console.log('meta', res.meta, 'frontmatter', res.frontmatter)
+  useHead({ title: post_details.value.title })
 </script>

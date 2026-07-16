@@ -251,6 +251,7 @@
 <script setup lang="ts">
   import { Combobox, Label, Pagination, Switch, ToggleGroup } from 'reka-ui/namespaced'
   import type { ApiArticleStats, ApiResponse, PageResponse } from '~/types'
+  useHead({ title: '文章列表' })
   definePageMeta({
     title: '文章列表',
     name: 'list',

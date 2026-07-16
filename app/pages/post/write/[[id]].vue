@@ -368,4 +368,5 @@
     document.addEventListener('mousemove', doDrag)
     document.addEventListener('mouseup', stopDrag)
   }
+  useHead({ title: articleId.value ? `编辑“${md.value.title}”` : '新建文章' })
 </script>

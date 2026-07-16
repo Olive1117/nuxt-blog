@@ -96,7 +96,7 @@
 <script setup lang="ts">
   import { Listbox } from 'reka-ui/namespaced'
   import type { ApiArticle, ApiArticleStats, ArticleTree } from '~/types'
-
+  useHead({ title: '文章列表' })
   definePageMeta({
     title: '归档页',
     name: 'archive',
