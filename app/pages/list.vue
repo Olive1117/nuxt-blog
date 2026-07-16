@@ -255,7 +255,11 @@
     title: '文章列表',
     name: 'list',
   })
-  const post_stats = useState<ApiArticleStats>('post:stats')
+  const { fetchStats } = usePostStore()
+  const post_stats_res = await fetchStats()
+  const post_stats = computed(() => {
+    return post_stats_res?.value ?? ({} as ApiArticleStats)
+  })
 
   const query_category = useRouteQuery('category', '', { transform: String })
   const categorylist = computed<Record<string, number>>(() => {
@@ -277,7 +281,6 @@
   const tagList = computed(() => {
     return post_stats.value.total_by_tag || {}
   })
-  console.log('检查', tagList.value)
 
   const query_page = useRouteQuery('page', 1, { transform: Number })
   const res_posts = await useAPI<ApiResponse<PageResponse<ArticleDisplay>>>('articles', {
@@ -296,10 +299,4 @@
   const page_size = computed<number>(() => res_posts.data.value?.data.page_size ?? 10)
   const post_list_total = computed<number>(() => res_posts.data.value?.data.total ?? 0)
   const post_list = computed(() => res_posts.data.value?.data.list ?? [])
-  watch(
-    () => post_list.value,
-    (newQuestion) => {
-      console.log('查询页数据', newQuestion)
-    }
-  )
 </script>

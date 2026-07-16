@@ -39,7 +39,7 @@
                 :key="art.short_id"
                 :value="art.short_id"
               >
-                <p class="flex items-center gap-4 h-6 px-2 whitespace-nowrap w-full">
+                <div class="flex items-center gap-4 h-6 px-2 whitespace-nowrap w-full">
                   <!-- 时间 -->
                   <NuxtTime
                     class="text-sm font-bold font-mono text-secondary tracking-tighter"
@@ -47,7 +47,7 @@
                     day="2-digit"
                     month="2-digit"
                   />
-                  <span class="flex flex-1 items-center justify-between">
+                  <div class="flex flex-1 items-center justify-between">
                     <!-- 分类 -->
                     <span class="flex items-center text-[#e3769b]">
                       <NuxtLink
@@ -82,8 +82,8 @@
                         </NuxtLink>
                       </span>
                     </span>
-                  </span>
-                </p>
+                  </div>
+                </div>
               </Listbox.Item>
             </template>
           </Listbox.Group>
@@ -131,7 +131,11 @@
       console.log(err)
     }
   })
-  const post_stats = useState<ApiArticleStats>('post:stats')
+  const { fetchStats } = usePostStore()
+  const post_stats_res = await fetchStats()
+  const post_stats = computed(() => {
+    return post_stats_res?.value ?? ({} as ApiArticleStats)
+  })
   const allArticle = computed(() => data.value ?? {})
   console.log(allArticle.value)
 </script>

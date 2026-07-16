@@ -223,7 +223,11 @@
     const id = route.params.id
     return (Array.isArray(id) ? id[0] : id) ?? ''
   })
-  const post_stats = useState<ApiArticleStats>('post:stats')
+  const { fetchStats } = usePostStore()
+  const post_stats_res = await fetchStats()
+  const post_stats = computed(() => {
+    return post_stats_res?.value ?? ({} as ApiArticleStats)
+  })
   const tagList = computed(() => {
     return post_stats.value.total_by_tag || {}
   })
@@ -253,16 +257,12 @@
   const codemirrorRef = useTemplateRef('codemirrorRef')
   const pRef = useTemplateRef('pEle')
   const cRef = useTemplateRef('cEle')
-  console.log(comarkTree.value.frontmatter)
 
   const alert_dialog_stats = ref({
     open: false,
     title: '',
     desc: '',
     disable: false,
-  })
-  watchEffect(() => {
-    console.log(alert_dialog_stats.value.open)
   })
   const verifyHandle = () => {
     if (md.value.category && md.value.tags && md.value.tags.length > 0 && md.value.slug) {
@@ -276,7 +276,6 @@
       alert_dialog_stats.value.open = true
       return
     }
-    console.log(comarkTree.value.frontmatter)
 
     if (!comarkTree.value.frontmatter.title || !comarkTree.value.frontmatter.desc) {
       alert_dialog_stats.value.title = '确定提交吗'
