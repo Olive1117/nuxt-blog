@@ -3,6 +3,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
   $production: {
+    devtools: { enabled: false },
     vite: {
       esbuild: {
         drop: ['debugger', 'console'],
