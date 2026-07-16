@@ -27,7 +27,7 @@
             :key="month"
             class="flex flex-col"
           >
-            <Listbox.GroupLabel class="block text-sm font-semibold text-primary pt-3 pb-1 pl-2">
+            <Listbox.GroupLabel class="block text-lg font-semibold text-primary pt-3 pb-1 pl-2">
               {{ month }}月·{{ getArticleTreeStats(allArticle, year, month).total }}篇
             </Listbox.GroupLabel>
             <template
@@ -36,6 +36,7 @@
             >
               <Listbox.Item
                 v-for="art in groupedArticle"
+                class="p-0.5"
                 :key="art.short_id"
                 :value="art.short_id"
               >
@@ -51,18 +52,18 @@
                     <!-- 分类 -->
                     <span class="flex items-center text-[#e3769b]">
                       <NuxtLink
-                        class="text-xs font-normal cursor-pointer"
+                        class="text-sm font-normal font-mono cursor-pointer"
                         :to="{ name: 'list', query: { category: art.category } }"
                       >
                         {{ art.category }}
                       </NuxtLink>
                     </span>
-                    <div class="mx-2 w-px self-stretch bg-primary"></div>
+                    <div class="mx-2 w-px self-stretch"></div>
                     <!-- 标题标签 -->
                     <span class="flex flex-4 justify-between">
                       <!-- 标题 -->
                       <NuxtLink
-                        class="text-sm w-full font-normal text-primary hover:text-[#e3769b] transition-colors duration-200"
+                        class="text-lg w-full font-medium font-serif text-primary hover:text-[#e3769b] transition-colors duration-200"
                         :to="{ name: 'post', params: { id: art.short_id } }"
                       >
                         {{ art.title }}
@@ -76,7 +77,7 @@
                         <NuxtLink
                           v-for="(tag, index) in art.tags"
                           :key="index"
-                          class="flex items-center px-1 text-xs text-secondary hover:text-[#e3769b] cursor-pointer transition-colors"
+                          class="flex items-center px-1 text-xs font-mono text-secondary hover:text-[#e3769b] cursor-pointer transition-colors"
                           :to="{ name: 'list', query: { tags: tag } }"
                           >{{ tag }}
                         </NuxtLink>

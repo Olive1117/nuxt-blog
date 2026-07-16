@@ -130,7 +130,7 @@
                 <div class="flex justify-between items-end w-full">
                   <div class="flex flex-col items-start gap-2">
                     <NuxtLink
-                      class="text-xl font-semibold tracking-tight"
+                      class="text-xl font-semibold tracking-tight font-serif"
                       :to="`/post/${articles.short_id}`"
                       >{{ articles.title }}
                       <span class="absolute inset-0 z-0"></span>
@@ -179,7 +179,7 @@
                         </ToggleGroup.Root>
                       </span>
                     </div>
-                    <p class="text-sm text-primary font-normal max-w-sm leading-relaxed">
+                    <p class="text-sm text-primary font-normal max-w-sm leading-relaxed font-serif">
                       {{ articles.desc }}
                     </p>
                   </div>
