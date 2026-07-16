@@ -10,7 +10,7 @@
       title="归档"
     />
     <Listbox.Root
-      class="px-[12vw] py-12"
+      class="px-[12vw] py-6"
       multiple
     >
       <!-- <Listbox.Filter>你好</Listbox.Filter> -->
@@ -50,7 +50,7 @@
                   />
                   <div class="flex flex-1 items-center justify-between">
                     <!-- 分类 -->
-                    <span class="flex items-center text-[#e3769b]">
+                    <span class="hidden md:flex items-center text-[#e3769b]">
                       <NuxtLink
                         class="text-sm font-normal font-mono cursor-pointer"
                         :to="{ name: 'list', query: { category: art.category } }"
@@ -58,7 +58,7 @@
                         {{ art.category }}
                       </NuxtLink>
                     </span>
-                    <div class="mx-2 w-px self-stretch"></div>
+                    <div class="hidden md:block mx-2 w-px self-stretch"></div>
                     <!-- 标题标签 -->
                     <span class="flex flex-4 justify-between">
                       <!-- 标题 -->
@@ -69,7 +69,7 @@
                         {{ art.title }}
                       </NuxtLink>
                       <!-- 标签 -->
-                      <span class="flex items-center text-secondary">
+                      <span class="hidden md:flex items-center text-secondary">
                         <Icon
                           class="text-base text-[#e3769b]/80"
                           name="tabler:tag"
