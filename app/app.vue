@@ -7,7 +7,6 @@
 </template>
 
 <script setup lang="ts">
-  import type { ApiArticleStats, ApiResponse } from './types'
   import 'katex/dist/katex.min.css'
 
   const keepalive = {

@@ -2,6 +2,13 @@
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
+  app: {
+    head: {
+      title: '首页',
+      titleTemplate: '%s - 小榄博客',
+      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    },
+  },
   $production: {
     devtools: { enabled: false },
     vite: {

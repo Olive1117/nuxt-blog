@@ -86,8 +86,6 @@
         </NavigationMenu.Root>
         <div class="flex items-center gap-4 relative">
           <ThemeToggle class="h-8 w-8" />
-          <button @click="handlerefreshtoken">测试token刷新</button>
-          <div>{{ auth_store.isLoggedIn ? '已登录' : '未登录' }}</div>
           <button
             aria-label="Sign in"
             class="h-8 w-8 flex items-center justify-center"
@@ -275,10 +273,6 @@
   const isShorten = computed(() => y.value > 100)
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-  const { $api } = useNuxtApp()
-  const handlerefreshtoken = () => {
-    $api('/api/v1/refresh', { method: 'POST' })
   }
 </script>
 
