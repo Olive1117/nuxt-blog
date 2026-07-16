@@ -1,11 +1,13 @@
 <template>
   <div class="details">
-    <div class="px-[12vw] pt-16 pb-8 border-b flex flex-col gap-4">
-      <h1 class="text-4xl font-bold">{{ post_details.title }}</h1>
-      <p class="text-lg">{{ post_details.desc }}</p>
-      <div class="flex justify-between">
+    <div class="px-[12vw] pt-0 md:pt-10 pb-4 md:pb-8 border-b flex flex-col gap-2 md:gap-4">
+      <h1 class="text-3xl font-serif md:text-4xl font-bold">{{ post_details.title }}</h1>
+      <p class="text-base font-serif md:text-lg">{{ post_details.desc }}</p>
+      <div
+        class="text-nowrap flex font-mono flex-col items-start gap-1 text-sm md:text-md md:gap-0 md:flex-row md:justify-between"
+      >
         <div class="flex gap-2">
-          <div class="flex items-center">
+          <div class="flex items-center gap-1">
             <Icon
               class="flex items-center justify-center"
               name="tabler:clock"
@@ -14,7 +16,7 @@
               {{ post_details.created_at }}
             </NuxtTime>
           </div>
-          <div class="flex items-center">
+          <div class="flex items-center gap-1">
             <Icon
               class="flex items-center justify-center"
               name="tabler:category"
@@ -23,7 +25,7 @@
               {{ post_details.category }}
             </NuxtLink>
           </div>
-          <div class="flex items-center">
+          <div class="flex items-center gap-1">
             <Icon
               class="flex items-center justify-center"
               name="tabler:tag"
@@ -38,15 +40,18 @@
           </div>
         </div>
         <div>
-          <div>
-            <Icon name="tabler:mist" />
+          <div class="flex items-center gap-1">
+            <Icon
+              class="flex items-center justify-center"
+              name="tabler:mist"
+            />
             {{ post_details.word_count }}字
           </div>
         </div>
       </div>
     </div>
     <ComarkRenderer
-      class="px-[12vw] pt-16 prose prose-stone dark:prose-invert max-w-none"
+      class="px-[6vw] pt-8 md:px-[12vw] md:pt-16 prose prose-sm md:prose-base prose-stone dark:prose-invert max-w-none"
       :tree="res"
     />
   </div>

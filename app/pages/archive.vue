@@ -10,7 +10,7 @@
       title="归档"
     />
     <Listbox.Root
-      class="px-[12vw] py-6"
+      class="px-[6vw] md:px-[12vw] py-6"
       multiple
     >
       <!-- <Listbox.Filter>你好</Listbox.Filter> -->

@@ -1,5 +1,5 @@
 <template>
-  <div class="relative flex flex-col gap-3 py-6 border-b border-primary">
+  <div class="relative flex flex-col gap-3 pt-0 pb-6 md:py-6 border-b border-primary">
     <span class="text-[10px] uppercase tracking-[0.3em] text-secondary font-medium">
       {{ props.label ?? 'Index&nbsp;/&nbsp;Posts' }}
     </span>

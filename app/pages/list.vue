@@ -6,7 +6,7 @@
         文章: post_stats.total ?? 0,
       }"
     />
-    <div class="relative px-[12vw] flex flex-col">
+    <div class="relative px-[6vw] md:px-[12vw] flex flex-col">
       <div class="flex flex-col md:flex-row-reverse gap-8 md:gap-16">
         <div class="flex flex-col gap-8 w-full md:w-[20vw] min-w-24 pt-6 md:py-16">
           <div class="flex flex-col gap-2">
