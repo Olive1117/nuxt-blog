@@ -37,7 +37,7 @@ export default defineNuxtConfig({
     dataValue: 'theme',
   },
   routeRules: {
-    '/': { prerender: true },
+    '/': { isr: true },
     '/blog/post/**': {
       cache: {
         swr: true,
