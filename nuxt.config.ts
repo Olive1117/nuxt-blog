@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineNuxtConfig({
   app: {
     head: {
-      title: '首页',
+      title: '欢迎来到',
       titleTemplate: '%s - 小榄博客',
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     },
