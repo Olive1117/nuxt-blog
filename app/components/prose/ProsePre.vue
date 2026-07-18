@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="py-2 before:h-px before:left-0 before:right-0 before:absolute before:border-b before:border-primary"></div>
-    <div ref="codeBlock" class="flex flex-col overflow-y-auto">
+    <div ref="codeBlock" class="shiki-code-body flex flex-col overflow-y-auto">
       <slot/>
     </div>
   </pre>

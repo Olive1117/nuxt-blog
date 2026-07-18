@@ -2,7 +2,7 @@ import type { ComarkTree } from 'comark'
 import type { ApiArticle, ApiArticleStats, ApiResponse } from '~/types'
 
 export interface ArticleDisplay extends ApiArticle {
-  astTree: ComarkTree
+  astTree?: ComarkTree
   created_at_display?: {
     year: string
     month: string

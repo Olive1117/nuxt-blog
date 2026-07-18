@@ -3,7 +3,7 @@
     <div class="flex justify-center">
       <AlertDialog.Root :open="alert_dialog_stats.open">
         <AlertDialog.Trigger
-          class="p-2 border rounded bg-background hover:bg-block active:text-background active:bg-accent"
+          class="btn-base btn-primary"
           @click.stop.prevent="verifyHandle"
         >
           提交
@@ -29,14 +29,11 @@
               <AlertDialog.Cancel
                 class="p-1 rounded hover:bg-block"
                 @click="() => (alert_dialog_stats.open = false)"
-                >取消</AlertDialog.Cancel
-              >
+                >取消
+              </AlertDialog.Cancel>
               <AlertDialog.Action
                 :disabled="alert_dialog_stats.disable"
-                :class="[
-                  { 'disabled:bg-weak': alert_dialog_stats.disable },
-                  'p-1 rounded bg-accent',
-                ]"
+                class="p-1 rounded bg-accent disabled:bg-weak disabled:cursor-not-allowed"
                 @click="submitHandle"
                 >确定
               </AlertDialog.Action>
@@ -211,7 +208,7 @@
     title: '',
     desc: '',
     slug: '',
-    content: '$$\nx = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}\n$$',
+    content: '',
     category: '',
     tags: [],
     status: 1,

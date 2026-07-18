@@ -228,6 +228,7 @@
           isFolder: false,
           isUrl: false,
         },
+        { name: '随笔', icon: 'tabler:notebook', path: 'diary', isFolder: false, isUrl: false },
       ],
     },
     {
@@ -236,7 +237,6 @@
       isFolder: true,
       isUrl: false,
       children: [
-        { name: '日记', icon: 'tabler:notebook', path: 'diary', isFolder: false, isUrl: false },
         { name: '图库', icon: 'tabler:photo', path: 'gallery', isFolder: false, isUrl: false },
         { name: '赞助', icon: 'tabler:heart', path: 'sponsor', isFolder: false, isUrl: false },
         { name: '关于', icon: 'tabler:info-circle', path: 'about', isFolder: false, isUrl: false },

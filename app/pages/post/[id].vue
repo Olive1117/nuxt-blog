@@ -7,13 +7,13 @@
         <NuxtLink
           class="text-sm text-secondary hover:text-primary active:text-accent border rounded p-1"
           :to="backUrl"
-          >回到{{ backName }}</NuxtLink
-        >
+          >回到{{ backName }}
+        </NuxtLink>
         <NuxtLink
           class="text-sm text-secondary hover:text-primary active:text-accent border rounded p-1"
           :to="{ name: 'write', params: { id: $route.params.id } }"
-          >编辑文章</NuxtLink
-        >
+          >编辑文章
+        </NuxtLink>
       </div>
       <h1 class="text-3xl font-serif md:text-4xl font-bold">{{ post_details.title }}</h1>
       <p class="text-base font-serif md:text-lg">{{ post_details.desc }}</p>

@@ -1,34 +1,6 @@
-@import './md.css';
-@import 'tailwindcss';
+@plugin "@tailwindcss/typography";
 
-/*
-Fade: opacity
-Scale: scale
-*/
-
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 @theme {
-  --color-primary: var(--primary);
-  --color-secondary: var(--secondary);
-  /* 弱化色 — 占位符文字、禁用状态、次要说明文字、分割线 */
-  --color-weak: var(--weak);
-  --color-background: var(--background);
-  /* 卡片/区块背景 — 卡片、面板、弹窗、输入框的背景（比页面背景稍深或稍浅，形成层级） */
-  --color-block: var(--block);
-  /* 阴影色 — 卡片阴影、弹窗阴影、悬浮效果 */
-  --color-shadow: var(--shadow);
-  /* 	文字选中色 — 鼠标选中文字时的背景高亮色 */
-  --color-selection: var(--selection);
-
-  --color-accent: var(--accent-color);
-  --color-accent-hover: var(--accent-hover);
-  --color-accent-light: var(--accent-light);
-
-  --animate-scale-in: scale-in 200ms ease-out;
-  --animate-scale-out: scale-out 150ms ease-in;
-  --animate-fade-in: fade-in 200ms ease-out;
-  --animate-fade-out: fade-out 150ms ease-in;
-
   --color-md: var(--md-color);
   --color-md-hover: var(--md-hover-color);
   --color-md-bk: var(--md-bk-color);
@@ -50,22 +22,8 @@ Scale: scale
   --color-md-scrollbar-thumb-hover: var(--md-scrollbar-thumb-hover-color);
   --color-md-scrollbar-thumb-active: var(--md-scrollbar-thumb-active-color);
 }
+
 :root {
-  /* 来自 https://ttio.cc/ */
-  scrollbar-gutter: stable;
-  background: var(--background);
-  --primary: #2a2a28;
-  --secondary: #7e7e7b;
-  --weak: #9f9f9c;
-  --background: #fffffd;
-  --block: #eee;
-  --shadow: #cdcdcc;
-  --selection: #adadacc3;
-
-  --accent-color: #e3769b;
-  --accent-hover: #0052a3;
-  --accent-light: #e6f0ff;
-
   /* 来自 https://github.com/imzbf/md-editor-v3/blob/develop/packages/MdEditor/styles/vars.scss */
   --md-color: #3f4a54;
   --md-hover-color: #000;
@@ -85,14 +43,6 @@ Scale: scale
   --md-scrollbar-thumb-active-color: #00000061;
 }
 [data-theme='dark'] {
-  --primary: #dddddb;
-  --secondary: #9e9e9b;
-  --weak: #5d5d5a;
-  --background: #0e0e0c;
-  --block: #1e1e1e;
-  --shadow: #323231;
-  --selection: #adadacc3;
-
   --md-color: #999;
   --md-hover-color: #bbb;
   --md-bk-color: #000;
@@ -109,40 +59,4 @@ Scale: scale
   --md-scrollbar-thumb-color: #2d2d2d;
   --md-scrollbar-thumb-hover-color: #3a3a3a;
   --md-scrollbar-thumb-active-color: #3a3a3a;
-}
-
-@keyframes scale-in {
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes scale-out {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0);
-  }
-}
-
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes fade-out {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
 }

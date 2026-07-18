@@ -13,13 +13,13 @@
       <div class="absolute right-[12vw] top-0 flex items-center justify-end gap-4">
         <button
           v-if="isEdit"
-          class="text-sm text-red-600 active:bg-red-600 active:text-background border rounded p-1"
+          class="btn-base btn-caution"
           @click="deletePostHandler"
         >
           确认
         </button>
         <button
-          class="text-sm text-secondary hover:text-primary active:text-accent border rounded p-1"
+          class="btn-base btn-secondary"
           @click="toggle"
         >
           {{ isEdit ? '取消' : '删除文章' }}
@@ -132,7 +132,7 @@
     title: '归档页',
     name: 'archive',
   })
-  const { data: post_data, refresh } = await useAsyncData('posts:all', async () => {
+  const { data: post_data } = await useAsyncData('posts:all', async () => {
     const result: ArticleTree = {}
 
     try {

@@ -1,0 +1,5 @@
+@import 'tailwindcss';
+@import './markdown.css';
+@import './color.css';
+@import './animate.css';
+@import './component.css';

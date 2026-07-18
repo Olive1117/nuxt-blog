@@ -15,7 +15,7 @@
 </script>
 
 <style>
-  html.dark .shiki span {
+  html.dark .shiki-code-body span {
     color: var(--shiki-dark) !important;
     background-color: var(--shiki-dark-bg) !important;
     font-style: var(--shiki-dark-font-style) !important;

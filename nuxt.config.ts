@@ -19,7 +19,7 @@ export default defineNuxtConfig({
   },
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  css: ['@/assets/app.css'],
+  css: ['@/assets/css/index.css'],
   modules: [
     '@vueuse/nuxt',
     '@nuxt/icon',
