@@ -14,8 +14,8 @@
         <Icon name="tabler:copy" @click="copyCode"/>
       </div>
     </div>
-    <div class="py-2 before:h-px before:right-0 before:absolute before:left-0 before:border-b before:border-primary"></div>
-    <div ref="codeBlock" class="flex flex-col">
+    <div class="py-2 before:h-px before:left-0 before:right-0 before:absolute before:border-b before:border-primary"></div>
+    <div ref="codeBlock" class="shiki-code-body flex flex-col overflow-y-auto">
       <slot/>
     </div>
   </pre>

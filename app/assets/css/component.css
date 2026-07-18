@@ -1,0 +1,44 @@
+/* 1. 基础按钮样式 */
+@utility btn-base {
+  font-size: var(--text-sm);
+  border-width: 1px;
+  border-radius: var(--radius-md);
+  padding: var(--spacing);
+}
+
+/* 2. 默认/次要按钮（回到列表、编辑、取消等） */
+@utility btn-secondary {
+  background-color: transparent;
+  color: var(--color-secondary);
+
+  &:hover {
+    color: var(--color-primary);
+  }
+  &:active {
+    color: var(--color-accent);
+  }
+}
+
+/* 3. 提交/主要按钮 */
+@utility btn-primary {
+  background-color: transparent;
+  color: var(--color-primary);
+
+  &:hover {
+    color: var(--color-primary);
+  }
+  &:active {
+    color: var(--color-accent);
+  }
+}
+
+/* 4. 危险/删除确认按钮 */
+@utility btn-caution {
+  color: var(--color-red-600);
+  border-color: var(--color-red-600);
+
+  &:active {
+    background-color: var(--color-red-600);
+    color: var(--color-background);
+  }
+}

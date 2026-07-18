@@ -1,0 +1,43 @@
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+@theme {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  /* 弱化色 — 占位符文字、禁用状态、次要说明文字、分割线 */
+  --color-weak: var(--weak);
+  --color-background: var(--background);
+  /* 卡片/区块背景 — 卡片、面板、弹窗、输入框的背景（比页面背景稍深或稍浅，形成层级） */
+  --color-block: var(--block);
+  /* 阴影色 — 卡片阴影、弹窗阴影、悬浮效果 */
+  --color-shadow: var(--shadow);
+  /* 	文字选中色 — 鼠标选中文字时的背景高亮色 */
+  --color-selection: var(--selection);
+
+  --color-accent: var(--accent-color);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-light: var(--accent-light);
+}
+:root {
+  /* 来自 https://ttio.cc/ */
+  scrollbar-gutter: stable;
+  background: var(--background);
+  --primary: #2a2a28;
+  --secondary: #7e7e7b;
+  --weak: #9f9f9c;
+  --background: #fffffd;
+  --block: #eee;
+  --shadow: #cdcdcc;
+  --selection: #adadacc3;
+
+  --accent-color: #e3769b;
+  --accent-hover: #0052a3;
+  --accent-light: #e6f0ff;
+}
+[data-theme='dark'] {
+  --primary: #dddddb;
+  --secondary: #9e9e9b;
+  --weak: #5d5d5a;
+  --background: #0e0e0c;
+  --block: #1e1e1e;
+  --shadow: #323231;
+  --selection: #adadacc3;
+}

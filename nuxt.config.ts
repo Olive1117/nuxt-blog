@@ -2,9 +2,24 @@
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
+  app: {
+    head: {
+      title: '欢迎来到',
+      titleTemplate: '%s - 小榄博客',
+      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    },
+  },
+  $production: {
+    devtools: { enabled: false },
+    vite: {
+      esbuild: {
+        drop: ['debugger', 'console'],
+      },
+    },
+  },
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  css: ['@/assets/app.css'],
+  css: ['@/assets/css/index.css'],
   modules: [
     '@vueuse/nuxt',
     '@nuxt/icon',
@@ -29,7 +44,7 @@ export default defineNuxtConfig({
     dataValue: 'theme',
   },
   routeRules: {
-    '/': { prerender: true },
+    '/': { isr: true },
     '/blog/post/**': {
       cache: {
         swr: true,
@@ -43,9 +58,6 @@ export default defineNuxtConfig({
     optimizeDeps: {
       include: ['reka-ui', 'reka-ui/namespaced'],
     },
-    // esbuild: {
-    //   drop: ['debugger', 'console'],
-    // },
   },
   nitro: {
     devProxy: {
