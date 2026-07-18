@@ -60,7 +60,13 @@
               >
                 <div class="flex items-center gap-4 h-6 px-2 whitespace-nowrap w-full">
                   <Icon
-                    class="scale-0 absolute right-full group-data-[state=checked]:scale-100 group-data-[state=checked]:w-auto transition-transform"
+                    :class="[
+                      {
+                        'group-data-[state=checked]:scale-100 group-data-[state=checked]:w-auto':
+                          isEdit,
+                      },
+                      'scale-0 absolute right-full  transition-transform',
+                    ]"
                     name="tabler:trash-x"
                   />
                   <!-- 时间 -->
@@ -168,9 +174,7 @@
       return
     }
     isEdit.value = !isEdit.value
-    if (!isEdit.value) {
-      deletePostList.value = []
-    }
+    deletePostList.value = []
   }
   const { $api } = useNuxtApp()
   const deletePostList = ref<string[]>([])

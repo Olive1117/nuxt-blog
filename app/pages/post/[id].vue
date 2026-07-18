@@ -4,8 +4,16 @@
       class="text-primary px-[12vw] pt-0 md:pt-10 pb-4 md:pb-8 border-b flex flex-col gap-2 md:gap-4"
     >
       <div class="flex items-center justify-between">
-        <NuxtLink :to="backUrl">回到{{ backName }}</NuxtLink>
-        <NuxtLink :to="{ name: 'write', params: { id: $route.params.id } }">编辑文章</NuxtLink>
+        <NuxtLink
+          class="text-sm text-secondary hover:text-primary active:text-accent border rounded p-1"
+          :to="backUrl"
+          >回到{{ backName }}</NuxtLink
+        >
+        <NuxtLink
+          class="text-sm text-secondary hover:text-primary active:text-accent border rounded p-1"
+          :to="{ name: 'write', params: { id: $route.params.id } }"
+          >编辑文章</NuxtLink
+        >
       </div>
       <h1 class="text-3xl font-serif md:text-4xl font-bold">{{ post_details.title }}</h1>
       <p class="text-base font-serif md:text-lg">{{ post_details.desc }}</p>
@@ -57,6 +65,7 @@
       </div>
     </div>
     <ComarkRenderer
+      v-if="AST"
       class="px-[6vw] pt-8 md:px-[12vw] md:pt-16 prose prose-sm md:prose-base prose-stone dark:prose-invert max-w-none"
       :tree="AST"
     />
@@ -64,6 +73,7 @@
 </template>
 
 <script setup lang="ts">
+  import type { ComarkTree } from 'comark'
   import type { ApiResponse } from '~/types'
   definePageMeta({
     title: '文章详细',
@@ -83,12 +93,13 @@
     },
   })
   const post_details = computed(() => res_post.data.value?.data ?? ({} as ArticleDisplay))
-  const AST = ref()
+  const AST = ref<ComarkTree>()
   whenever(
     () => post_details.value.content,
     async (newtext) => {
       AST.value = await useMarkdown(newtext)
-    }
+    },
+    { immediate: true }
   )
   useHead({ title: post_details.value.title })
 </script>
