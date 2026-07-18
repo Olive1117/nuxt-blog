@@ -1,7 +1,7 @@
 <template>
   <div class="h-screen flex flex-col relative text-primary z-0 px-[12vw] py-16 gap-4">
     <div class="flex justify-center">
-      <AlertDialog.Root v-model="alert_dialog_stats.open">
+      <AlertDialog.Root :open="alert_dialog_stats.open">
         <AlertDialog.Trigger
           class="p-2 border rounded bg-background hover:bg-block active:text-background active:bg-accent"
           @click.stop.prevent="verifyHandle"
@@ -207,7 +207,7 @@
   import { AlertDialog, Autocomplete, Label, TagsInput } from 'reka-ui/namespaced'
   import type { ApiArticle, ApiArticleStats, ApiResponse, ArticleDTO } from '~/types'
   const { $api } = useNuxtApp()
-  const DEFAULT_ARTICLE: ArticleDTO = {
+  const createDefaultArticle = (): ArticleDTO => ({
     title: '',
     desc: '',
     slug: '',
@@ -216,14 +216,14 @@
     tags: [],
     status: 1,
     image_count: 0,
-  }
+  })
   const route = useRoute()
   const asyneKey = computed(() => `write:${route.params.id}`)
   const articleId = computed(() => {
     const id = route.params.id
     return (Array.isArray(id) ? id[0] : id) ?? ''
   })
-  const { fetchStats } = usePostStore()
+  const { fetchStats, refreshStats } = usePostStore()
   const post_stats_res = await fetchStats()
   const post_stats = computed(() => {
     return post_stats_res?.value ?? ({} as ApiArticleStats)
@@ -249,7 +249,7 @@
   )
 
   const md = useState<ArticleDTO>('edit:md', () =>
-    articleDetail.value ? { ...articleDetail.value } : { ...DEFAULT_ARTICLE }
+    articleDetail.value ? { ...articleDetail.value } : createDefaultArticle()
   )
   const comarkTree = ref<ComarkTree>({} as ComarkTree)
   // SSR初始化解析
@@ -271,7 +271,7 @@
       alert_dialog_stats.value.disable = false
     } else {
       alert_dialog_stats.value.disable = true
-      alert_dialog_stats.value.title = '分类和标签未填写！'
+      alert_dialog_stats.value.title = '分类、标签、索引未填写！'
       alert_dialog_stats.value.desc = ''
       alert_dialog_stats.value.open = true
       return
@@ -291,40 +291,47 @@
     await parseMarkdown(md.value.content)
     md.value.title = comarkTree.value.frontmatter.title
     md.value.desc = comarkTree.value.frontmatter.desc
-    if (articleId.value) {
-      try {
+    try {
+      if (articleId.value) {
         const res = await $api<ApiResponse<ArticleDTO>>(`articles/${articleId.value}`, {
           method: 'PUT',
           body: md.value,
         })
 
         if (res.code === 200) {
-          await navigateTo({ name: 'post', params: { id: articleId.value } })
+          await nextTick()
+          await Promise.all([
+            refreshStats(),
+            refreshNuxtData(['posts:all', 'posts:list', `posts:${articleId.value}`]),
+          ])
           alert_dialog_stats.value.open = false
+          await navigateTo({ name: 'post', params: { id: articleId.value } })
         } else {
           alert_dialog_stats.value.desc = `提交失败${res.msg}`
         }
-      } catch (err) {
-        alert_dialog_stats.value.title = 'ERROR'
-        alert_dialog_stats.value.desc = `${err}`
-      }
-    } else {
-      try {
+      } else {
         const res = await $api<ApiResponse<ArticleDTO>>('articles', {
           method: 'POST',
           body: md.value,
         })
 
         if (res.code === 200) {
-          await navigateTo({ name: 'list' })
+          await nextTick()
+          await Promise.all([refreshStats(), refreshNuxtData(['posts:all', 'posts:list'])])
+          md.value = createDefaultArticle()
           alert_dialog_stats.value.open = false
+          await navigateTo({ name: 'list' })
         } else {
           alert_dialog_stats.value.desc = `提交失败${res.msg}`
         }
-      } catch (err) {
-        alert_dialog_stats.value.title = 'ERROR'
-        alert_dialog_stats.value.desc = `${err}`
       }
+    } catch (err: any) {
+      if (err?.status === 401 || err?.response?.status === 401) {
+        alert_dialog_stats.value.open = false
+        return
+      }
+      alert_dialog_stats.value.title = 'ERROR'
+      alert_dialog_stats.value.desc = `${err}`
     }
   }
 
@@ -368,5 +375,11 @@
     document.addEventListener('mousemove', doDrag)
     document.addEventListener('mouseup', stopDrag)
   }
-  useHead({ title: articleId.value ? `编辑“${md.value.title}”` : '新建文章' })
+
+  useHead({ title: articleId.value ? `编辑文章` : '新建文章' })
+  definePageMeta({
+    title: '编辑文章',
+    name: 'write',
+    middleware: 'auth',
+  })
 </script>

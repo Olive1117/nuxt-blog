@@ -291,6 +291,7 @@
 
   const query_page = useRouteQuery('page', 1, { transform: Number })
   const res_posts = await useAPI<ApiResponse<PageResponse<ArticleDisplay>>>('articles', {
+    key: 'posts:list',
     query: { query_page, tags: query_tag, category: query_category },
     transform: (res) => {
       res.data.list = res.data.list.map((a) => {

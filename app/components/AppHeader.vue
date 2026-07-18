@@ -1,5 +1,5 @@
 <template>
-  <div class="AppHeader dark:text-zinc-100">
+  <div class="AppHeader text-primary pointer-events-none">
     <!-- 电脑导航 -->
     <div class="flex justify-center">
       <div
@@ -7,7 +7,7 @@
         :class="isShorten ? ' grow-0' : ' grow'"
       >
         <NuxtLink
-          class="flex items-center text-nowrap relative"
+          class="flex items-center text-nowrap relative pointer-events-auto"
           to="/"
           @click="scrollToTop"
         >
@@ -24,7 +24,7 @@
         </NuxtLink>
         <NavigationMenu.Root
           v-model="currentNavValue"
-          class="relative text-nowrap"
+          class="relative text-nowrap pointer-events-auto"
           disable-hover-trigger
           disable-pointer-leave-close
         >
@@ -37,8 +37,8 @@
             >
               <NavigationMenu.Trigger
                 :as="nav.isFolder ? 'button' : NuxtLink"
-                class="p-4 flex items-center gap-2"
-                :to="nav.isUrl ? nav.url : nav.path"
+                class="p-2 flex items-center gap-2"
+                :to="nav.isUrl ? nav.url : { name: nav.path }"
                 @click="handleNavClick(nav)"
               >
                 <Icon :name="nav.icon" />
@@ -58,7 +58,7 @@
                       <NavigationMenu.Trigger
                         :as="chiNav.isFolder ? 'button' : NuxtLink"
                         class="p-4 flex items-center gap-2"
-                        :to="chiNav.isUrl ? chiNav.url : chiNav.path"
+                        :to="chiNav.isUrl ? chiNav.url : { name: chiNav.path }"
                         @click="handleNavClick(chiNav)"
                       >
                         <Icon :name="chiNav.icon" />
@@ -84,9 +84,10 @@
             />
           </div>
         </NavigationMenu.Root>
-        <div class="flex items-center gap-4 relative">
+        <div class="flex items-center gap-4 relative pointer-events-auto">
           <ThemeToggle class="h-8 w-8" />
           <button
+            v-if="!auth_store.isLoggedIn"
             aria-label="Sign in"
             class="h-8 w-8 flex items-center justify-center"
             @click="auth_store.openLogin"
@@ -101,7 +102,7 @@
     </div>
 
     <!-- 手机导航 -->
-    <div class="md:hidden flex justify-between py-4 px-4">
+    <div class="md:hidden flex justify-between py-4 px-4 pointer-events-auto">
       <Drawer.Root swipe-direction="up">
         <Drawer.Trigger>
           <Icon
@@ -182,6 +183,7 @@
       <div class="flex items-center gap-4 relative">
         <ThemeToggle />
         <button
+          v-if="!auth_store.isLoggedIn"
           class="h-8 w-8 flex items-center justify-center"
           @click="auth_store.openLogin"
         >
@@ -210,19 +212,19 @@
     children?: NavLink[]
   }
   const NavLinks: NavLink[] = [
-    { name: '首页', icon: 'tabler:home', path: '/', isFolder: false, isUrl: false },
+    { name: '首页', icon: 'tabler:home', path: 'home', isFolder: false, isUrl: false },
     {
       name: '文章',
       icon: 'tabler:folders',
       isFolder: true,
       isUrl: false,
       children: [
-        { name: '文章列表', icon: 'tabler:list', path: '/list', isFolder: false, isUrl: false },
-        { name: '归档', icon: 'tabler:archive', path: '/archive', isFolder: false, isUrl: false },
+        { name: '文章列表', icon: 'tabler:list', path: 'list', isFolder: false, isUrl: false },
+        { name: '归档', icon: 'tabler:archive', path: 'archive', isFolder: false, isUrl: false },
         {
           name: '新建文章',
           icon: 'tabler:file-plus',
-          path: '/post/write',
+          path: 'write',
           isFolder: false,
           isUrl: false,
         },
@@ -234,10 +236,10 @@
       isFolder: true,
       isUrl: false,
       children: [
-        { name: '日记', icon: 'tabler:notebook', path: '/diary', isFolder: false, isUrl: false },
-        { name: '图库', icon: 'tabler:photo', path: '/gallery', isFolder: false, isUrl: false },
-        { name: '赞助', icon: 'tabler:heart', path: '/sponsor', isFolder: false, isUrl: false },
-        { name: '关于', icon: 'tabler:info-circle', path: '/about', isFolder: false, isUrl: false },
+        { name: '日记', icon: 'tabler:notebook', path: 'diary', isFolder: false, isUrl: false },
+        { name: '图库', icon: 'tabler:photo', path: 'gallery', isFolder: false, isUrl: false },
+        { name: '赞助', icon: 'tabler:heart', path: 'sponsor', isFolder: false, isUrl: false },
+        { name: '关于', icon: 'tabler:info-circle', path: 'about', isFolder: false, isUrl: false },
       ],
     },
     {
@@ -246,8 +248,8 @@
       isFolder: true,
       isUrl: false,
       children: [
-        { name: '友链', icon: 'tabler:link', path: '/friendlink', isFolder: false, isUrl: false },
-        { name: '留言', icon: 'tabler:message', path: '/guestbook', isFolder: false, isUrl: false },
+        { name: '友链', icon: 'tabler:link', path: 'friendlink', isFolder: false, isUrl: false },
+        { name: '留言', icon: 'tabler:message', path: 'guestbook', isFolder: false, isUrl: false },
       ],
     },
     {

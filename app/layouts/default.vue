@@ -1,6 +1,6 @@
 <template>
   <div class="default relative z-0 transition-bg duration-200">
-    <Background />
+    <!-- <Background /> -->
     <AppHeader class="fixed top-0 w-full z-10" />
     <div :class="[contentClass, 'relative z-5']">
       <slot />

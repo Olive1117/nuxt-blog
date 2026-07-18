@@ -1,6 +1,12 @@
 <template>
   <div class="details">
-    <div class="px-[12vw] pt-0 md:pt-10 pb-4 md:pb-8 border-b flex flex-col gap-2 md:gap-4">
+    <div
+      class="text-primary px-[12vw] pt-0 md:pt-10 pb-4 md:pb-8 border-b flex flex-col gap-2 md:gap-4"
+    >
+      <div class="flex items-center justify-between">
+        <NuxtLink :to="backUrl">回到{{ backName }}</NuxtLink>
+        <NuxtLink :to="{ name: 'write', params: { id: $route.params.id } }">编辑文章</NuxtLink>
+      </div>
       <h1 class="text-3xl font-serif md:text-4xl font-bold">{{ post_details.title }}</h1>
       <p class="text-base font-serif md:text-lg">{{ post_details.desc }}</p>
       <div
@@ -52,7 +58,7 @@
     </div>
     <ComarkRenderer
       class="px-[6vw] pt-8 md:px-[12vw] md:pt-16 prose prose-sm md:prose-base prose-stone dark:prose-invert max-w-none"
-      :tree="res"
+      :tree="AST"
     />
   </div>
 </template>
@@ -62,15 +68,27 @@
   definePageMeta({
     title: '文章详细',
     name: 'post',
+    middleware: 'router-info',
   })
+  const fromPath = useState('router:from')
+  const fromName = useState('router:name')
+  const backUrl = computed(() => fromPath.value || '/list')
+  const backName = computed(() => fromName.value || '列表')
   const route = useRoute()
   const res_post = await useAPI<ApiResponse<ArticleDisplay>>(`articles/${route.params.id}`, {
+    key: `posts:${route.params.id}`,
     transform: (res) => {
       res.data = formatArticle(res.data)
       return res
     },
   })
   const post_details = computed(() => res_post.data.value?.data ?? ({} as ArticleDisplay))
-  const res = await useMarkdown(post_details.value.content)
+  const AST = ref()
+  whenever(
+    () => post_details.value.content,
+    async (newtext) => {
+      AST.value = await useMarkdown(newtext)
+    }
+  )
   useHead({ title: post_details.value.title })
 </script>

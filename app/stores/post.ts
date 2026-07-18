@@ -33,5 +33,17 @@ export const usePostStore = defineStore('post', () => {
     }
     return null
   }
-  return { stats, fetchStats }
+  async function refreshStats() {
+    const { $api } = useNuxtApp()
+
+    try {
+      const res = await $api<ApiResponse<ApiArticleStats>>('articles/stats')
+      if (res?.data) {
+        stats.value = res.data
+      }
+    } catch (error) {
+      console.error('加载文章聚合状态失败:', error)
+    }
+  }
+  return { stats, fetchStats, refreshStats }
 })
