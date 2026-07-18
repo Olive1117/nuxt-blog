@@ -65,15 +65,13 @@
       </div>
     </div>
     <ComarkRenderer
-      v-if="AST"
       class="px-[6vw] pt-8 md:px-[12vw] md:pt-16 prose prose-sm md:prose-base prose-stone dark:prose-invert max-w-none"
-      :tree="AST"
+      :tree="post_details.astTree"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-  import type { ComarkTree } from 'comark'
   import type { ApiResponse } from '~/types'
   definePageMeta({
     title: '文章详细',
@@ -87,19 +85,12 @@
   const route = useRoute()
   const res_post = await useAPI<ApiResponse<ArticleDisplay>>(`articles/${route.params.id}`, {
     key: `posts:${route.params.id}`,
-    transform: (res) => {
+    transform: async (res) => {
       res.data = formatArticle(res.data)
+      res.data.astTree = await useMarkdown(res.data.content)
       return res
     },
   })
   const post_details = computed(() => res_post.data.value?.data ?? ({} as ArticleDisplay))
-  const AST = ref<ComarkTree>()
-  whenever(
-    () => post_details.value.content,
-    async (newtext) => {
-      AST.value = await useMarkdown(newtext)
-    },
-    { immediate: true }
-  )
   useHead({ title: post_details.value.title })
 </script>
