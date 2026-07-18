@@ -183,7 +183,7 @@
           class="flex-1 overflow-y-auto relative bg-background"
         >
           <ComarkRenderer
-            class="prose wrap-break-word prose-stone dark:prose-invert max-w-none bg-background"
+            class="prose wrap-break-word prose-stone prose-sm dark:prose-invert max-w-none bg-background"
             :tree="comarkTree"
           />
         </div>
