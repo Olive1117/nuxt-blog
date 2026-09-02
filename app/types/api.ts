@@ -91,7 +91,7 @@ export interface ApiArticleStats {
   total_by_tag: { string: number }
 }
 
-export interface FriendLink {
+export interface ApiFriendLink {
   id: string
   name: string
   url: string

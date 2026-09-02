@@ -157,7 +157,7 @@
       })
       return result
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   })
   const { fetchStats, refreshStats } = usePostStore()
